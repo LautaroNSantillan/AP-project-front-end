@@ -1,0 +1,19 @@
+<div class="h-screen flex justify-center items-center" *ngIf="loading">
+    <mat-spinner diameter="50"></mat-spinner>
+</div>
+<div class="flex justify-center items-center min-h-screen" *ngIf="!loading">
+    <form class="flex justify-center items-center flex-col space-y-3 w-72" [formGroup]="form" (ngSubmit)="login()">
+        <img src="../../../assets/images/usuario.png" alt="USER IMAGE" class="w-1/2 mx-auto">
+        <mat-form-field appearance="fill" class="w-full">
+            <mat-label>Fill your username</mat-label>
+            <input matInput placeholder="Your username" autocomplete="off" formControlName="user">
+            <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="w-full">
+            <mat-label>Fill your password</mat-label>
+            <input type="password" matInput placeholder="**********" autocomplete="off" formControlName="pwd">
+            <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+        </mat-form-field>
+        <button type="submit" mat-raised-button color="primary" class="w-full" [disabled]="form.invalid">Login</button>
+    </form>
+</div>
