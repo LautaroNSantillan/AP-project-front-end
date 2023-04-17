@@ -1,0 +1,21 @@
+<mat-toolbar class="bg-transparent fixed bg-gradient-to-b from-black/50 to-transparent">
+    <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <span>LOGO</span>
+    <span class="example-spacer"></span>
+    <button mat-raised-button color="primary" *ngFor="let item of menu" [routerLink]="item.redirect" > {{item.name}} </button>
+    <span class="example-spacer"></span>
+    <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+      <mat-icon>contact_page</mat-icon>
+    </button>
+    <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
+      <mat-icon>badge</mat-icon>
+    </button>
+    <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon" routerLink="/dashboard" *ngIf="isLogged" (click)="onLogout()">
+      <mat-icon>logout</mat-icon>
+    </button>
+    <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon" routerLink="/login" *ngIf="!isLogged">
+      <mat-icon>login</mat-icon>
+    </button>
+  </mat-toolbar>
