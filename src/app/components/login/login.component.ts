@@ -64,6 +64,8 @@ export class LoginComponent {
     );
   }
 
+  //register
+
   login() {
     const userInput = this.form.value.user;
     const pwdInput = this.form.value.pwd;
