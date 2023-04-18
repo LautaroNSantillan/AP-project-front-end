@@ -35,7 +35,7 @@ export class ExperienceComponent implements OnInit{
         this.loadExperience();
       },err=> {
         console.log(err)
-        alert(err.error)
+        alert(err.error.msg)
       })
     }
   }

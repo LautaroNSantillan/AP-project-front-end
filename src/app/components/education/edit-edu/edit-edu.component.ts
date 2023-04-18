@@ -58,7 +58,7 @@ export class EditEduComponent implements OnInit {
       },
       error: (err) => {
         console.log(err);
-        alert(err.error);
+        alert(err.error.msg);
       }
     });
   }

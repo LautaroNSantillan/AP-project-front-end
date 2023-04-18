@@ -34,7 +34,7 @@ export class CreateEduComponent {
       this.router.navigate(['dashboard']);
     },err=>{
       console.log(err);
-      alert(err.error);
+      alert(err.error.msg);
     })
 
   }

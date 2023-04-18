@@ -36,7 +36,7 @@ export class EducationComponent implements OnInit {
         console.log(res);
         this.loadEducation();
       },err=>{
-        alert(err.error);
+        alert(err.error.msg);
       })
     }
   }

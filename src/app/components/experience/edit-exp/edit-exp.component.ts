@@ -26,7 +26,7 @@ export class EditExpComponent implements OnInit {
       this.expToMod = res;
     },err=>{
       console.log(err)
-      alert("ERROR"+ err.error)
+      alert("ERROR "+ err.error.msg)
     })
   }
 
@@ -39,7 +39,7 @@ export class EditExpComponent implements OnInit {
       this.router.navigate(['/dashboard']);
     },err=>{
       console.log(err)
-      alert("ERROR"+ err.error)
+      alert(err.error.msg)
     })
   }
 }
