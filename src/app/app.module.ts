@@ -14,6 +14,10 @@ import { HomeComponent } from './components/home/home.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { interceptorProvider } from './services/interceptor-service';
+import { UsersComponent } from './components/users/users.component';
+import { ExperienceComponent } from './components/experience/experience.component';
+import { CreateExpComponent } from './components/experience/create-exp.component';
+import { EditExpComponent } from './components/experience/edit-exp/edit-exp.component';
 
 
 @NgModule({
@@ -23,7 +27,11 @@ import { interceptorProvider } from './services/interceptor-service';
     LinkBoxesComponent,
     LoginComponent,
     HomeComponent,
-    ProfileComponent
+    ProfileComponent,
+    UsersComponent,
+    ExperienceComponent,
+    CreateExpComponent,
+    EditExpComponent
   ],
   imports: [
     BrowserModule,

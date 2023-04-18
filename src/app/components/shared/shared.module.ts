@@ -12,6 +12,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatDialogModule} from '@angular/material/dialog';
 
 //My comps
 import { FooterComponent } from '../footer/footer.component';
@@ -29,8 +30,8 @@ import { FooterComponent } from '../footer/footer.component';
     ReactiveFormsModule,
     MatSnackBarModule,
     MatProgressSpinnerModule,
-    HttpClientModule
-   
+    HttpClientModule,
+    MatDialogModule
   ],
   exports: [
     MatToolbarModule,
@@ -42,7 +43,8 @@ import { FooterComponent } from '../footer/footer.component';
     MatSnackBarModule,
     MatProgressSpinnerModule,
     FooterComponent,
-    HttpClientModule
+    HttpClientModule,
+    MatDialogModule
   ]
 })
 export class SharedModule { }

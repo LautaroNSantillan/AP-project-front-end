@@ -6,9 +6,5 @@
     {
         "name":"Users",
         "redirect":"/dashboard/users"
-    },
-    {
-        "name":"Profile",
-        "redirect":"/dashboard/profile"
     }
 ]

@@ -5,6 +5,7 @@
     <span>LOGO</span>
     <span class="example-spacer"></span>
     <button mat-raised-button color="primary" *ngFor="let item of menu" [routerLink]="item.redirect" > {{item.name}} </button>
+    <button mat-raised-button color="primary" *ngIf="isLogged" routerLink="/dashboard/profile" > Profile </button>
     <span class="example-spacer"></span>
     <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
       <mat-icon>contact_page</mat-icon>
