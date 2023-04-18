@@ -1,6 +1,6 @@
 <section>
 
-    <button mat-raised-button color="accent" routerLink="/dashboard/create-experience" *ngIf="isLogged">CREATE EXPERIENCE</button>
+    <button mat-raised-button color="accent" routerLink="/dashboard/create-education" *ngIf="isLogged">CREATE EDUCATION</button>
 
     <div class="flex flex-col">
         <div class="overflow-x-auto sm:mx-0.5 lg:mx-0.5">
@@ -24,17 +24,17 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr class="bg-gray-100 border-b" *ngFor="let exp of experience">
+                  <tr class="bg-gray-100 border-b" *ngFor="let edu of education">
                     <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                      {{exp.expName}}
+                      {{edu.eduName}}
                     </td>
                     <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                     {{exp.expDescription}}
+                     {{edu.eduDescription}}
                     </td>
-                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap" routerLink="/dashboard/edit-experience/{{exp.id}}" *ngIf="isLogged">
+                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap" routerLink="/dashboard/edit-education/{{edu.id}}" *ngIf="isLogged">
                         <button><mat-icon>edit</mat-icon></button>
                       </td>
-                      <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap" *ngIf="isLogged" (click)="disable(exp.id)">
+                      <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap" *ngIf="isLogged" (click)="disable(edu.id)">
                         <button><mat-icon>delete</mat-icon></button>
                       </td>
                   </tr>

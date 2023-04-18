@@ -18,6 +18,9 @@ import { UsersComponent } from './components/users/users.component';
 import { ExperienceComponent } from './components/experience/experience.component';
 import { CreateExpComponent } from './components/experience/create-exp.component';
 import { EditExpComponent } from './components/experience/edit-exp/edit-exp.component';
+import { EducationComponent } from './components/education/education.component';
+import { CreateEduComponent } from './components/education/create-edu/create-edu.component';
+import { EditEduComponent } from './components/education/edit-edu/edit-edu.component';
 
 
 @NgModule({
@@ -31,7 +34,10 @@ import { EditExpComponent } from './components/experience/edit-exp/edit-exp.comp
     UsersComponent,
     ExperienceComponent,
     CreateExpComponent,
-    EditExpComponent
+    EditExpComponent,
+    EducationComponent,
+    CreateEduComponent,
+    EditEduComponent
   ],
   imports: [
     BrowserModule,
