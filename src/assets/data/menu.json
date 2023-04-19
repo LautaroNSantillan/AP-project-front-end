@@ -1,0 +1,10 @@
+[
+    {
+        "name":"Home",
+        "redirect":"/dashboard/home"
+    },
+    {
+        "name":"Users",
+        "redirect":"/dashboard/users"
+    }
+]

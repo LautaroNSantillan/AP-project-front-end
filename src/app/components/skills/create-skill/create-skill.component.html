@@ -1,0 +1,13 @@
+<section>
+    <form (ngSubmit)="onCreate()" novalidate [formGroup]="newSkillForm">
+        <div fxLayout="row" fxLayoutAlign="space-between center">
+            <mat-form-field>
+                <input matInput formControlName="skillName" placeholder="Skill Name">
+              </mat-form-field>              
+          <mat-form-field>
+            <input matInput placeholder="Skill Percentage" formControlName="skillPercentage">
+          </mat-form-field>
+        </div>
+        <button mat-raised-button color="accent">Accent</button>
+      </form>
+</section>

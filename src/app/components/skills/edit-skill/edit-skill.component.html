@@ -1,0 +1,13 @@
+<section *ngIf="skillToMod">
+    <form (ngSubmit)="onUpdate()" novalidate [formGroup]="editSkillForm">
+        <div fxLayout="row" fxLayoutAlign="space-between center">
+            <mat-form-field>
+                <input matInput formControlName="skillName" placeholder="Skill Name">
+              </mat-form-field>              
+          <mat-form-field>
+            <input type="number" matInput placeholder="Skill Percentage" formControlName="skillPercentage">
+          </mat-form-field>
+        </div>
+        <button mat-raised-button color="accent">Accent</button>
+      </form>
+</section>

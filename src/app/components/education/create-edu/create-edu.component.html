@@ -1,0 +1,14 @@
+<section>
+    <form (ngSubmit)="onCreate()" novalidate [formGroup]="newEduForm">
+        <div fxLayout="row" fxLayoutAlign="space-between center">
+            <mat-form-field>
+                <input matInput formControlName="eduName" placeholder="Education Name">
+              </mat-form-field>              
+          <mat-form-field>
+            <input matInput placeholder="Education Description" formControlName="eduDescription">
+          </mat-form-field>
+        </div>
+        <button mat-raised-button color="accent">Accent</button>
+      </form>
+</section>
+

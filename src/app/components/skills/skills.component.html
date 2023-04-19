@@ -1,0 +1,13 @@
+<section>
+    <h2>Skills</h2>
+    <button mat-raised-button color="accent" routerLink="/dashboard/create-skill" *ngIf="isLogged">CREATE Skill</button>
+    <div *ngFor="let skill of skills">
+        <h3> {{skill.skillName}} </h3>
+        <mat-progress-bar mode="determinate" [value]="skill.percentage"></mat-progress-bar>
+        <button *ngIf="isLogged" routerLink='/edit-skill/{{skill.id}}' ><mat-icon>edit</mat-icon></button>
+        <button *ngIf="isLogged" routerLink='/disable-skill/{{skill.id}}'><mat-icon>delete</mat-icon></button>
+        <button routerLink="/dashboard/edit-skill/{{skill.id}}" *ngIf="isLogged"><mat-icon>edit</mat-icon></button>
+        <button (click)="disable(skill.id)" *ngIf="isLogged"><mat-icon>delete</mat-icon></button>
+    </div>
+</section>
+
