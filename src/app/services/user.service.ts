@@ -8,7 +8,7 @@ import { user } from '../model/user.model';
 })
 export class UserService {
 
-  URL="http://localhost:8080/users/";
+  URL="http://localhost:8080/mock/";
 
   constructor(private http: HttpClient) { }
 
