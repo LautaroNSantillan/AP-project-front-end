@@ -16,7 +16,6 @@ export class SkillsComponent {
 
   ngOnInit(): void {
     this.loadSkills();
-    
   }
 
   loadSkills(): void {
@@ -24,14 +23,15 @@ export class SkillsComponent {
       next:res=>{
         console.log(res);
         this.skills=res;
-        if(this.tokenService.getToken()){
+        
+      }
+    });
+    if(this.tokenService.getToken()){
           this.isLogged=true;
         }
         else{
           this.isLogged=false;
         }
-      }
-    })
   }
 
   disable(id :number): void{

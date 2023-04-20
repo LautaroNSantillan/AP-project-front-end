@@ -1,0 +1,38 @@
+<section class="pt-20">
+    <form (ngSubmit)="onUpdate()" novalidate #f="ngForm">
+        <div fxLayout="row" fxLayoutAlign="space-between center">
+            <div>
+                <label>
+                    Name
+                    <input type="text" name="name" placeholder="Name" [(ngModel)]="webUser.name" [ngModelOptions]="">
+                </label>
+            </div>
+            <div>
+                <label>
+                    Last Name
+                    <input type="text" name="lastName" placeholder="Last Name" [(ngModel)]="webUser.lastName" [ngModelOptions]="">
+                </label>
+            </div>
+            <div>
+                <label>
+                    About
+                    <input type="text" name="about" placeholder="About" [(ngModel)]="webUser.about" [ngModelOptions]="">
+                </label>
+            </div>
+            <div>
+                <label>
+                    Email
+                    <input type="text" name="email" placeholder="Email" [(ngModel)]="webUser.email" [ngModelOptions]="">
+                </label>
+            </div>
+            <div>
+                <label>
+                    Image
+                    <input type="file" name="img" placeholder="Image" [(ngModel)]="webUser.img" (change)="uploadImage($event)" accept=".jpg, .jpeg, .png" [ngModelOptions]="">
+                </label>
+            </div>
+
+        </div>
+        <button mat-raised-button color="accent">Accent</button>
+    </form>
+</section>

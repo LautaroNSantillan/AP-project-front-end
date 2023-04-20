@@ -9,6 +9,7 @@ import { CreateEduComponent } from '../education/create-edu/create-edu.component
 import { EditEduComponent } from '../education/edit-edu/edit-edu.component';
 import { CreateSkillComponent } from '../skills/create-skill/create-skill.component';
 import { EditSkillComponent } from '../skills/edit-skill/edit-skill.component';
+import { EditAboutComponent } from '../about/edit-about/edit-about.component';
 
 const routes: Routes = [
   {path: '', component:DashboardComponent, children:[
@@ -20,6 +21,7 @@ const routes: Routes = [
     {path:'create-education', component:CreateEduComponent},
     {path:'create-skill', component:CreateSkillComponent},
     {path:'edit-skill/:id', component:EditSkillComponent},
+    {path:'edit-web-user/:id', component:EditAboutComponent},
     {path:'profile', component:ProfileComponent},
     {path:'**', component:HomeComponent},
   ]}

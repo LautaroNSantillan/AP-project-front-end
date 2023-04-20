@@ -1,0 +1,16 @@
+<section>
+
+    <button mat-raised-button color="accent" *ngIf="isLogged" routerLink='edit-web-user/{{webUser.id}}' > EDIT PROFILE </button>
+
+    <div>
+        <!-- <img src={{webUser.img}} alt=""> -->
+        <h3> {{webUser.name}}  {{webUser.lastName}}</h3>
+    </div>
+
+    <div>
+        <h2>About Me</h2>
+        <p> {{webUser.about}} </p>
+    </div>
+
+
+</section>
