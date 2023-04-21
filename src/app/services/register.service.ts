@@ -1,19 +1,19 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { user } from '../model/user.model';
 import { environment } from 'src/environments/environment';
+import { Registerdto } from '../model/registerdto';
 
 @Injectable({
   providedIn: 'root'
 })
-export class UserService {
-
-  URL=environment.URL+"mock/";
+export class RegisterService {
+  registerURL= environment.URL+'web-user/';
 
   constructor(private http: HttpClient) { }
 
-  public getUser(): Observable<user> {
-    return this.http.get<user>(this.URL+ 'user/1');
+  public register(registerDTO: Registerdto): Observable<any> {
+     return this.http.post<any>(this.registerURL+'create-web-user', registerDTO);
   }
+
 }

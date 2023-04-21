@@ -1,0 +1,23 @@
+<section>
+    <form (ngSubmit)="register()" novalidate [formGroup]="registerForm">
+        <div fxLayout="row" fxLayoutAlign="space-between center">
+            <mat-form-field>
+                <input matInput formControlName="name" placeholder="Name">
+              </mat-form-field>              
+          <mat-form-field>
+            <input matInput placeholder="Last Name" formControlName="lastName">
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Username" formControlName="username">
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Email" formControlName="email">
+          </mat-form-field>
+        <mat-form-field>
+            <input type="password" matInput placeholder="Password" formControlName="pwd">
+          </mat-form-field>
+        </div>
+        <button mat-raised-button color="accent">Accent</button>
+      </form>
+</section>
+

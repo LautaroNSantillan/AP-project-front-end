@@ -1,4 +1,4 @@
-<section class="pt-20">
+<section class="pt-20" *ngIf="webUser">
     <form (ngSubmit)="onUpdate()" novalidate #f="ngForm">
         <div fxLayout="row" fxLayoutAlign="space-between center">
             <div>
@@ -30,8 +30,8 @@
                     Image
                     <input type="file" name="img" placeholder="Image" [(ngModel)]="webUser.img" (change)="uploadImage($event)" accept=".jpg, .jpeg, .png" [ngModelOptions]="">
                 </label>
+                <img *ngIf="imageService.imgURL" [src]="imageService.imgURL" alt="">
             </div>
-
         </div>
         <button mat-raised-button color="accent">Accent</button>
     </form>

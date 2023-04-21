@@ -2,12 +2,13 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Skill } from '../model/skill';
 import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SkillService {
-  skillURL = "http://localhost:8080/skill/";
+  skillURL = environment.URL+"skill/";
 
   constructor(private httpClient: HttpClient) { }
 
@@ -29,5 +30,8 @@ export class SkillService {
 
   public disable(id: number): Observable<any>{
     return this.httpClient.patch<any>(this.skillURL+`disable-skill/${id}`, {})
+  }
+  public getSkillByIdList(id :number): Observable<Skill[]>{
+    return this.httpClient.get<Skill[]>(this.skillURL + `active-skill-by-id/${id}`);
   }
 }

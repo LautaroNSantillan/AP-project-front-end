@@ -26,6 +26,10 @@ import { SkillsComponent } from './components/skills/skills.component';
 import { EditSkillComponent } from './components/skills/edit-skill/edit-skill.component';
 import { AboutComponent } from './components/about/about.component';
 import { EditAboutComponent } from './components/about/edit-about/edit-about.component';
+import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
+import { environment } from '../environments/environment';
+import { provideStorage,getStorage } from '@angular/fire/storage';
+import { RegisterComponent } from './components/register/register.component';
 
 
 @NgModule({
@@ -47,13 +51,16 @@ import { EditAboutComponent } from './components/about/edit-about/edit-about.com
     SkillsComponent,
     EditSkillComponent,
     AboutComponent,
-    EditAboutComponent
+    EditAboutComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    SharedModule
+    SharedModule,
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideStorage(() => getStorage())
   ],
   providers: [
     interceptorProvider,

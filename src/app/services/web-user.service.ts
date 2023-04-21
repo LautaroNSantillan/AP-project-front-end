@@ -2,12 +2,13 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, OnInit } from '@angular/core';
 import { WebUser } from '../model/web-user';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class WebUserService implements OnInit{
-  webUserURL="http://localhost:8080/web-user/";
+  webUserURL=environment.URL+"web-user/";
 
   constructor(private httpClient: HttpClient) { }
 
@@ -26,5 +27,11 @@ export class WebUserService implements OnInit{
   }
   public updateWebUser(id:number, webuser: WebUser): Observable<any>{
     return this.httpClient.patch<any>(this.webUserURL+`update-web-user/${id}`, webuser);
+  }
+  public getCurrentUser(): Observable<any>{
+    return this.httpClient.get<any>(this.webUserURL+'current-web-user');
+  }
+  public getCurrentUserId(): Observable<number>{
+    return this.httpClient.get<number>(this.webUserURL+'get-current-user-id');
   }
 }

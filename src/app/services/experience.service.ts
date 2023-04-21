@@ -2,13 +2,14 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Experience } from '../model/experience';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ExperienceService {
 
-  expURL = "http://localhost:8080/exp/";
+  expURL = environment.URL+"exp/";
 
   constructor(private httpClient: HttpClient) { }
 
@@ -19,6 +20,9 @@ export class ExperienceService {
 
   public detail(id :number): Observable<Experience>{
     return this.httpClient.get<Experience>(this.expURL + `get-exp/${id}`);
+  }
+  public getExpByIdList(id :number): Observable<Experience[]>{
+    return this.httpClient.get<Experience[]>(this.expURL + `active-exp-by-id/${id}`);
   }
   public create(experience :Experience): Observable<any>{
     return this.httpClient.post<any>(this.expURL + 'create-exp', experience)

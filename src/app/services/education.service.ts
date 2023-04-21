@@ -2,12 +2,13 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Education } from '../model/education';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EducationService {
-  eduURL= "http://localhost:8080/edu/";
+  eduURL= environment.URL+"edu/";
 
   constructor(private httpClient: HttpClient) { }
 
@@ -25,5 +26,8 @@ export class EducationService {
   }
   public disableEdu(id:number): Observable<any>{
     return this.httpClient.patch<any>(this.eduURL+`disable-edu/${id}`, {});
+  }
+  public getActiveEduById(id:number): Observable<Education[]>{
+    return this.httpClient.get<Education[]>(this.eduURL+`active-edu-by-id/${id}`);
   }
 }

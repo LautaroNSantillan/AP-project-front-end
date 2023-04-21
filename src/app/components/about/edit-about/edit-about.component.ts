@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { WebUser } from 'src/app/model/web-user';
+import { UploadImageService } from 'src/app/services/upload-image.service';
 import { WebUserService } from 'src/app/services/web-user.service';
 
 @Component({
@@ -13,7 +14,7 @@ export class EditAboutComponent implements OnInit{
   webUser: WebUser = null;
 
 
-  constructor(private activatedRoute: ActivatedRoute, private webUserService: WebUserService, private router: Router){
+  constructor(private activatedRoute: ActivatedRoute, private webUserService: WebUserService, private router: Router, public imageService: UploadImageService){
   }
 
   ngOnInit( ): void {
@@ -33,10 +34,11 @@ export class EditAboutComponent implements OnInit{
 
   onUpdate(){
     const id = this.activatedRoute.snapshot.params['id'];
+    this.webUser.img=this.imageService.imgURL;
     this.webUserService.updateWebUser(id, this.webUser).subscribe({
       next:res=>{
-        console.log(res);
-        alert(res);
+        console.log(res.msg);
+        alert(res.msg);
         this.router.navigate(['/dashboard'])
     },
       error:err=>{
@@ -46,5 +48,9 @@ export class EditAboutComponent implements OnInit{
     });   
   }
 
-  uploadImage($event: any){}
+  uploadImage($event: any){
+    const id = this.activatedRoute.snapshot.params['id'];
+    const name = "profilepicuser#"+id;
+    this.imageService.uploadImage($event, name);
+  }
 }

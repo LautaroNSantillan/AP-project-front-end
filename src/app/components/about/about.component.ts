@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { WebUser } from 'src/app/model/web-user';
+import { AuthService } from 'src/app/services/auth.service';
 import { TokenService } from 'src/app/services/token.service';
 import { WebUserService } from 'src/app/services/web-user.service';
 
@@ -12,22 +13,19 @@ export class AboutComponent implements OnInit {
   isLogged=false;
   webUser: WebUser = null;
 
-  constructor(private webUserService: WebUserService, private tokenService: TokenService){}
+  constructor(private webUserService: WebUserService, private tokenService: TokenService, private auth: AuthService){}
 
   ngOnInit(): void {
     this.loadWebUser();
-    if(this.tokenService.getToken()){
-      console.log("logged")
-      this.isLogged=true;
-    }
-    else{
-      console.log("not logged")
-      this.isLogged=false;
-    }
+    this.isLogged=this.auth.isLogged();
+  }
+
+  loadMyData(): void {
+    this.webUserService
   }
 
   loadWebUser(): void {
-    this.webUserService.getWebUser(1).subscribe({
+    this.webUserService.getCurrentUser().subscribe({
       next: res=>{
         console.log(res);
         this.webUser=res;

@@ -1,4 +1,4 @@
-<section>
+<section *ngIf="webUser">
 
     <button mat-raised-button color="accent" *ngIf="isLogged" routerLink='edit-web-user/{{webUser.id}}' > EDIT PROFILE </button>
 

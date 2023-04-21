@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Education } from 'src/app/model/education';
+import { WebUser } from 'src/app/model/web-user';
+import { AuthService } from 'src/app/services/auth.service';
 import { EducationService } from 'src/app/services/education.service';
 import { TokenService } from 'src/app/services/token.service';
+import { WebUserService } from 'src/app/services/web-user.service';
 
 @Component({
   selector: 'app-education',
@@ -11,23 +14,22 @@ import { TokenService } from 'src/app/services/token.service';
 export class EducationComponent implements OnInit {
   education: Education[]=[];
   isLogged=false;
+  webUser: WebUser = null;
 
-  constructor(private educationServ: EducationService, private tokenServ: TokenService){}
+  constructor(private educationServ: EducationService, private tokenServ: TokenService, private auth: AuthService, private webUserService: WebUserService){}
 
   ngOnInit(): void {
     this.loadEducation();
-    if(this.tokenServ.getToken()){
-      this.isLogged=true;
-    }else{
-      this.isLogged=false;
-    }
+    this.isLogged=this.auth.isLogged();
   }
 
   loadEducation(): void{
-    this.educationServ.eduList().subscribe(res=>{
-      console.log(res);
-      this.education=res;
-    })
+    this.webUserService.getCurrentUserId().subscribe(userId => {
+      this.educationServ.getActiveEduById(userId).subscribe(res => {
+        console.log(res);
+        this.education = res;
+      });
+    });
   }
 
   disable(id: number): void{
