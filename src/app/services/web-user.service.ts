@@ -34,4 +34,10 @@ export class WebUserService implements OnInit{
   public getCurrentUserId(): Observable<number>{
     return this.httpClient.get<number>(this.webUserURL+'get-current-user-id');
   }
+  public getIsAdmin(): Observable<boolean>{
+    return this.httpClient.get<boolean>(this.webUserURL+'get-is-admin');
+  }
+  public getMe(): Observable<any>{
+    return this.httpClient.get<any>(this.webUserURL+'get-me');
+  }
 }

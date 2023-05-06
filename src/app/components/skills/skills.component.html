@@ -1,13 +1,25 @@
-<section>
-    <h2>Skills</h2>
+<section class="container mx-auto">
+    <h2 class="text-3xl">MY SKILLS</h2>
     <button mat-raised-button color="accent" routerLink="/dashboard/create-skill" *ngIf="isLogged">CREATE Skill</button>
-    <div *ngFor="let skill of skills">
-        <h3> {{skill.skillName}} </h3>
-        <mat-progress-bar mode="determinate" [value]="skill.percentage"></mat-progress-bar>
-        <button *ngIf="isLogged" routerLink='/edit-skill/{{skill.id}}' ><mat-icon>edit</mat-icon></button>
-        <button *ngIf="isLogged" routerLink='/disable-skill/{{skill.id}}'><mat-icon>delete</mat-icon></button>
-        <button routerLink="/dashboard/edit-skill/{{skill.id}}" *ngIf="isLogged"><mat-icon>edit</mat-icon></button>
-        <button (click)="disable(skill.id)" *ngIf="isLogged"><mat-icon>delete</mat-icon></button>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-x-7 my-4 gap-y-5 mx-auto">
+
+
+        <div *ngFor="let skill of skills"
+            class="col-span-1 bg-white mx-auto w-4/5 inner-box-shadow bg-indigo-300/25 p-2 rounded-md">
+            <h3 class="underline font-extrabold text-emerald-950 text-2xl"> {{skill.skillName}} </h3>
+            <span class="flex">
+                <span class="w-3/5">
+                    <p>Confidence:</p>
+                    <mat-progress-bar mode="determinate" [value]="skill.percentage"></mat-progress-bar>  
+                </span>
+                <div class="w-2/5"> <img class="w-full" [src]="skill.imgURL ? skill.imgURL : '../../../../assets/images/no-image.jpg'"
+                    alt="" class="w-full"> </div>
+            </span>
+            <button *ngIf="isLogged" routerLink='/dashboard/edit-skill/{{skill.id}}'><mat-icon>edit</mat-icon></button>
+            <button *ngIf="isLogged" (click)="disable(skill.id)"><mat-icon>delete</mat-icon></button>
+
+          
+        </div>
     </div>
 </section>
-

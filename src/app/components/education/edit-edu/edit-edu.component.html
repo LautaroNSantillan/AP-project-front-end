@@ -8,6 +8,13 @@
             <input matInput placeholder="Education Description" formControlName="eduDescription">
           </mat-form-field>
         </div>
+        <div>
+          <div>
+              Image
+              <input type="file" name="img" placeholder="Image" formControlName="imgURL" (change)="uploadImage($event)" accept=".jpg, .jpeg, .png" >
+              <img *ngIf="newimgURL" [src]="newimgURL" alt="" class="w-64">
+          </div>
+          </div>
         <button mat-raised-button color="accent">Accent</button>
       </form>
 </section>

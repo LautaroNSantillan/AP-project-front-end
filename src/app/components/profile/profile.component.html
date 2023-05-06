@@ -1,6 +1,19 @@
-<section class="min-h-screen flex flex-col flex-center">
-    <h1 class="mx-auto my-auto text-xl font-black text-sky-300"> Your Profile </h1>
-    <div class="h-full grid grid-cols-2 gap-4 mx-auto my-auto text-xl font-black text-sky-300 text-center">
-        <p> {{user.name}} {{user.lastName}} </p>
+<section class=" container min-h-screen mx-auto">
+    <div class="flex">
+        <div class="rounded-full overflow-hidden w-64 border-gradient ">
+            <img class="rounded-full w-full overflow-hidden"
+            [src]="webUser.img ? webUser.img : '../../../../assets/images/no-image.jpg'" alt="">
+        </div>
+        <h3 class="text-2xl text-center my-auto text-bold ml-10"> {{webUser.name}} + {{webUser.lastName}} </h3>
     </div>
+    <div class="bg-white bg-opacity-50 rounded-md p-4">
+        <h4 class="text-2xl">ABOUT</h4>
+        <p *ngIf="webUser.about; else noAbout" class="italic"> {{webUser.about}} </p>
+        <ng-template #noAbout>
+            <p class="italic"> No description provided </p>
+        </ng-template>
+    </div>
+    <app-skills></app-skills>
+    <app-education></app-education>
+    <app-experience></app-experience>
 </section>

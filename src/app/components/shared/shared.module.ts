@@ -2,7 +2,9 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http'; 
+
+
 
 //Material
 import {MatButtonModule} from '@angular/material/button';
@@ -14,6 +16,11 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatDividerModule} from '@angular/material/divider';
+import {MatListModule} from '@angular/material/list';
+import { MatTooltipModule } from '@angular/material/tooltip';
+
 
 
 //My comps
@@ -35,7 +42,11 @@ import { FooterComponent } from '../footer/footer.component';
     HttpClientModule,
     MatDialogModule,
     MatProgressBarModule,
-    FormsModule
+    FormsModule,
+    MatSidenavModule,
+    MatDividerModule,
+    MatListModule,
+    MatTooltipModule,
   ],
   exports: [
     MatToolbarModule,
@@ -50,7 +61,11 @@ import { FooterComponent } from '../footer/footer.component';
     HttpClientModule,
     MatDialogModule,
     MatProgressBarModule,
-    FormsModule
+    FormsModule,
+    MatSidenavModule,
+    MatDividerModule,
+    MatListModule,
+    MatTooltipModule,
   ]
 })
 export class SharedModule { }

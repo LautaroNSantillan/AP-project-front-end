@@ -1,10 +1,12 @@
 [
     {
         "name":"Home",
-        "redirect":"/dashboard/home"
+        "redirect":"/dashboard/home",
+        "icon":"home"
     },
     {
-        "name":"Users",
-        "redirect":"/dashboard/users"
+        "name":"Mock users",
+        "redirect":"/dashboard/users",
+        "icon":"groups"
     }
 ]

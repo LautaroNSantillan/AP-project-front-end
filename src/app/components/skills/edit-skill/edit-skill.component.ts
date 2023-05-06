@@ -20,13 +20,12 @@ export class EditSkillComponent implements OnInit{
     })
   }
 
-
   ngOnInit(): void {
     const id  = this.activatedRoute.snapshot.params['id'];
     
     this.skillService.getSkill(id).subscribe({
       next: res=>{
-        console.log(res);
+        console.log("AAAAAAAAAA"+res);
         this.skillToMod=res;
       },
       error: err => {

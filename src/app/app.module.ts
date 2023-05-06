@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { SplashComponent } from './components/home/splash/splash.component';
 import { LinkBoxesComponent } from './components/home/link-boxes/link-boxes.component';
 
+
 import { SharedModule } from './components/shared/shared.module';
 import { LoginComponent } from './components/login/login.component';
 import { HomeComponent } from './components/home/home.component';
@@ -30,6 +31,7 @@ import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
 import { environment } from '../environments/environment';
 import { provideStorage,getStorage } from '@angular/fire/storage';
 import { RegisterComponent } from './components/register/register.component';
+import { MockUsersComponent } from './components/mock-users/mock-users.component';
 
 
 @NgModule({
@@ -52,7 +54,8 @@ import { RegisterComponent } from './components/register/register.component';
     EditSkillComponent,
     AboutComponent,
     EditAboutComponent,
-    RegisterComponent
+    RegisterComponent,
+    MockUsersComponent,
   ],
   imports: [
     BrowserModule,

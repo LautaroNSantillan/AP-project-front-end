@@ -11,18 +11,35 @@ export class UploadImageService {
 
   constructor(private storage: Storage) { }
 
-  public uploadImage($event: any, name: string){
+  // public uploadImage($event: any, name: string){
+  //   const file = $event.target.files[0];
+
+  //   const imgRef= ref(this.storage, `images/`+ name);
+
+  //   uploadBytes(imgRef, file)
+  //   .then(res=>{
+  //     this.getImages();
+  //   })
+  //   .catch(err=>{
+  //     console.error(err);
+  //   });
+  // }
+
+  public uploadImage($event: any, name: string): Promise<string> {
     const file = $event.target.files[0];
-
+  
     const imgRef= ref(this.storage, `images/`+ name);
-
-    uploadBytes(imgRef, file)
-    .then(res=>{
-      this.getImages();
-    })
-    .catch(err=>{
-      console.error(err);
-    });
+  
+    return uploadBytes(imgRef, file)
+      .then(async res => {
+        this.imgURL = await getDownloadURL(imgRef);
+        console.log(this.imgURL)
+        return getDownloadURL(imgRef)
+      })
+      .catch(err => {
+        console.error(err);
+        throw err;
+      });
   }
 
   getImages(){

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { user } from 'src/app/model/user.model';
+import { WebUser } from 'src/app/model/web-user';
 import { UserService } from 'src/app/services/user.service';
+import { WebUserService } from 'src/app/services/web-user.service';
 
 @Component({
   selector: 'app-profile',
@@ -8,11 +10,15 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
-  user: user = new user("", "", "",new Date());
+  webUser: WebUser;
 
-  constructor(public userService: UserService){}
+  constructor(public userService: UserService, private webUserService: WebUserService){}
 
   ngOnInit(): void {
-    this.userService.getUser().subscribe(data => this.user =data);
+    this.webUserService.getCurrentUser().subscribe({
+      next:data=>{
+        this.webUser=data;
+      }
+    })
   }
 }

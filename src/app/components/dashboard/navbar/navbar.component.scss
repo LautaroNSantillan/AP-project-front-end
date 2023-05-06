@@ -1,3 +1,10 @@
 .example-spacer {
     flex: 1 1 auto;
   }
+
+  .hide-for-md{
+    display: none!important;
+    @media(min-width:768px){
+      display: flex!important;
+    }
+  }

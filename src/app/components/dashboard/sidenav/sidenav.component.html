@@ -1,0 +1,56 @@
+<div class="bg-transparent fixed bg-gradient-to-b from-black/50 to-transparent flex md:hidden w-screen" >
+    <button mat-icon-button class="example-icon ml-auto" aria-label="Example icon-button with menu icon" (click)="isSidebarOpen = !isSidebarOpen">
+      <mat-icon>menu</mat-icon>
+    </button>
+    </div>
+    
+    <aside class="sidebar" [class.open]="isSidebarOpen" [class.closing]="!isSidebarOpen">
+        <nav class="nav">
+            <ul>
+                <li class="active"><a href="#">Welcome</a></li>
+                <li><a href="#">Who We Are</a></li>
+                <li><a href="#">What We Do</a></li>
+                <li><a href="#">Get In Touch</a></li>
+            </ul>
+        </nav>
+    </aside>
+    <!-- <mat-sidenav-container class="h-screen">
+        <mat-sidenav mode="side" class="text-center w-full h-screen w-56 absolute absolute z-10" #sidenav="matSidenav" >
+            <mat-list class="text-center">
+                <span *ngFor="let item of menu">
+                    <mat-list-item [routerLink]="item.redirect"><a> <mat-icon> {{item.icon}} </mat-icon>{{item.name}}</a>
+                    </mat-list-item>
+                    <mat-divider></mat-divider>
+                   
+                </span>
+    
+                <span *ngIf="isLogged">
+                    <mat-list-item routerLink="/dashboard/profile"><a> <mat-icon> person </mat-icon> Profile
+                        </a></mat-list-item>
+                    <mat-divider></mat-divider>
+                </span>
+    
+                <mat-list-item>
+                    <a>
+                        <mat-icon>badge</mat-icon>
+                        My Cv
+                    </a>
+                </mat-list-item>
+                <mat-divider></mat-divider>
+    
+                <span *ngIf="isLogged">
+                    <mat-list-item routerLink="/dashboard"><mat-icon>logout</mat-icon>Logout</mat-list-item>
+                    <mat-divider></mat-divider>
+                </span>
+    
+                <span *ngIf="!isLogged">
+                    <mat-list-item routerLink="/login"><mat-icon>login</mat-icon> Log In</mat-list-item>
+                    <mat-divider></mat-divider>
+                </span>
+            
+            </mat-list>
+        </mat-sidenav>
+        <mat-sidenav-content id="invisible"> <div>
+            NO SE DEBERIA VER 
+        </div> </mat-sidenav-content>
+    </mat-sidenav-container> -->

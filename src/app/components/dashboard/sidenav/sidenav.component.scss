@@ -1,0 +1,89 @@
+.sidebar {
+    position: fixed;
+    width: 25%;
+    height: 100vh;
+    background: #312450;
+    font-size: 0.65em;
+    transform: translateX(-100%);
+    transition: transform 0.3s cubic-bezier(0.77, 0, 0.175, 1); /* change timing function */
+  }
+  
+  .sidebar.open {
+    transform: translateX(0%);
+    animation: slide-in 0.3s both;
+  }
+  
+  .sidebar.closing {
+    animation: slide-out 0.3s ease-in-out both;
+  }
+  
+  .nav {
+    position: relative;
+    margin: 0 15%;
+    text-align: right;
+    top: 50%;
+    transform: translateY(-50%);
+    font-weight: bold;
+  }
+  
+  .nav ul {
+    list-style: none;
+  }
+  
+  .nav ul li {
+    position: relative;
+    margin: 3.2em 0;
+  }
+  
+  .nav ul li a {
+    line-height: 5em;
+    text-transform: uppercase;
+    text-decoration: none;
+    letter-spacing: 0.4em;
+    color: rgba(255, 255, 255, 0.35);
+    display: block;
+    transition: all ease-out 300ms;
+  }
+  
+  .nav ul li.active a {
+    color: white;
+  }
+  
+  .nav ul li:not(.active)::after {
+    opacity: 0.2;
+  }
+  
+  .nav ul li:not(.active):hover a {
+    color: rgba(255, 255, 255, 0.75);
+  }
+  
+  .nav ul li::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 0.2em;
+    background: black;
+    left: 0;
+    bottom: 0;
+    background-image: linear-gradient(to right, #5e42a6, #b74e91);
+  }
+  
+  @keyframes slide-in {
+    from {
+      transform: translateX(-100%);
+    }
+    to {
+      transform: translateX(0%);
+    }
+  }
+  
+  @keyframes slide-out {
+    from {
+      transform: translateX(0%);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+  }

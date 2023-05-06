@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { Skill } from 'src/app/model/skill';
 import { SkillService } from 'src/app/services/skill.service';
 import { TokenService } from 'src/app/services/token.service';
@@ -13,10 +14,20 @@ export class SkillsComponent {
   skills: Skill[] = [];
   isLogged: boolean = false;
 
-  constructor(private skillService: SkillService, private tokenService: TokenService, private webUserService: WebUserService){}
+  constructor(private skillService: SkillService, private tokenService: TokenService, private webUserService: WebUserService, private router: Router){}
 
   ngOnInit(): void {
-    this.loadSkills();
+    const currentRoute = this.router.url;
+
+    if(currentRoute=="/dashboard/profile"){
+      this.loadSkills();
+    }else{
+      this.webUserService.getMe().subscribe({
+        next:data=>{
+          this.skills=data.skills;
+        }
+      })
+    }
   }
 
   loadSkills(): void {

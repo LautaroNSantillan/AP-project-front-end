@@ -2,7 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Experience } from 'src/app/model/experience';
+import { WebUser } from 'src/app/model/web-user';
 import { ExperienceService } from 'src/app/services/experience.service';
+import { UploadImageService } from 'src/app/services/upload-image.service';
+import { WebUserService } from 'src/app/services/web-user.service';
 
 @Component({
   selector: 'app-create-exp',
@@ -10,27 +13,36 @@ import { ExperienceService } from 'src/app/services/experience.service';
   styleUrls: ['./create-exp.component.scss']
 })
 export class CreateExpComponent implements OnInit {
+  webUser: WebUser;
   newExpForm: FormGroup;
   newExpName: string="";
   newExpDescription: string="";
+  imgURL: string;
 
-  constructor(private experienceServ: ExperienceService, private router: Router,  private fb: FormBuilder){
+  constructor(private experienceServ: ExperienceService, private router: Router,  private fb: FormBuilder, public imageService: UploadImageService, private webUserService: WebUserService){
     this.newExpForm = this.fb.group({
       expName: ['', Validators.required],
       expDescription: ['', Validators.required],
+      imgURL:['']
     })
   }
 
   ngOnInit(): void {
-    
+    this.webUserService.getCurrentUser().subscribe({
+      next:data=>{
+        this.webUser=data;
+        console.log(this.webUser);
+      }
+    })
   }
 
   onCreate(): void {
     this.newExpName = this.newExpForm.value.expName;
     this.newExpDescription = this.newExpForm.value.expDescription;
-    console.log(this.newExpName, this.newExpDescription)
+    this.imgURL=this.imageService.imgURL;
+    console.log(this.newExpName, this.newExpDescription, this.imgURL)
 
-    const exp = new Experience(this.newExpName, this.newExpDescription);
+    const exp = new Experience(this.newExpName, this.newExpDescription, this.imgURL);
     this.experienceServ.create(exp).subscribe(data => {
       alert("Experience Added")
       this.router.navigate(['/dashboard'])
@@ -38,5 +50,10 @@ export class CreateExpComponent implements OnInit {
       console.log()
       alert(err.error)
     })
+  }
+
+  uploadImage($event: any){
+    const name = "user" + this.webUser.name+ "exppic"+ this.newExpForm.value.expName;
+    this.imageService.uploadImage($event, name);
   }
 }

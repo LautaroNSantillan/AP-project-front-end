@@ -11,6 +11,7 @@ import { WebUserService } from 'src/app/services/web-user.service';
 })
 export class AboutComponent implements OnInit {
   isLogged=false;
+  isAdmin=false;
   webUser: WebUser = null;
 
   constructor(private webUserService: WebUserService, private tokenService: TokenService, private auth: AuthService){}
@@ -18,6 +19,15 @@ export class AboutComponent implements OnInit {
   ngOnInit(): void {
     this.loadWebUser();
     this.isLogged=this.auth.isLogged();
+    this.webUserService.getIsAdmin().subscribe({
+      next:res=>{
+        console.log(res);
+        this.isAdmin=res;
+      },
+      error:err=>{
+        console.log(err);
+      }
+    })
   }
 
   loadMyData(): void {
