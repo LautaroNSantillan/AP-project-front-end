@@ -9,7 +9,7 @@ import { SplashComponent } from './components/home/splash/splash.component';
 import { LinkBoxesComponent } from './components/home/link-boxes/link-boxes.component';
 
 
-import { SharedModule } from './components/shared/shared.module';
+import { MY_DATE_FORMATS, SharedModule } from './components/shared/shared.module';
 import { LoginComponent } from './components/login/login.component';
 import { HomeComponent } from './components/home/home.component';
 import { ProfileComponent } from './components/profile/profile.component';
@@ -32,6 +32,12 @@ import { environment } from '../environments/environment';
 import { provideStorage,getStorage } from '@angular/fire/storage';
 import { RegisterComponent } from './components/register/register.component';
 import { MockUsersComponent } from './components/mock-users/mock-users.component';
+import { DeleteDialogComponent } from './components/delete-dialog/delete-dialog.component';
+import { EditMockUsersComponent } from './components/mock-users/edit-mock-users/edit-mock-users.component';
+import { CreateMockUsersComponent } from './components/mock-users/create-mock-users/create-mock-users.component';
+import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
+
+
 
 
 @NgModule({
@@ -56,6 +62,9 @@ import { MockUsersComponent } from './components/mock-users/mock-users.component
     EditAboutComponent,
     RegisterComponent,
     MockUsersComponent,
+    DeleteDialogComponent,
+    EditMockUsersComponent,
+    CreateMockUsersComponent,
   ],
   imports: [
     BrowserModule,
@@ -67,7 +76,8 @@ import { MockUsersComponent } from './components/mock-users/mock-users.component
   ],
   providers: [
     interceptorProvider,
-    { provide: LocationStrategy, useClass: PathLocationStrategy }]
+    { provide: LocationStrategy, useClass: PathLocationStrategy },
+    { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS },]
     ,
   bootstrap: [AppComponent]
 })

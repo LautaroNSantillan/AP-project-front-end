@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Experience } from 'src/app/model/experience';
 import { ExperienceService } from 'src/app/services/experience.service';
+import { UploadImageService } from 'src/app/services/upload-image.service';
 
 @Component({
   selector: 'app-edit-exp',
@@ -10,10 +12,18 @@ import { ExperienceService } from 'src/app/services/experience.service';
   styleUrls: ['./edit-exp.component.scss']
 })
 export class EditExpComponent implements OnInit {
+  imgURL: string;
+  newimgURL: string;
   editExpForm: FormGroup;
   expToMod: Experience = null;
 
-  constructor(private experienceServ: ExperienceService, private activatedRouter: ActivatedRoute, private router: Router, private fb: FormBuilder){
+  constructor(
+    private imageService: UploadImageService,
+    private experienceServ: ExperienceService, 
+    private activatedRouter: ActivatedRoute, 
+    private router: Router, 
+    private fb: FormBuilder,
+    @Inject(MAT_DIALOG_DATA) public data:{ expId: number }){
     this.editExpForm=this.fb.group({
       expName: ['', Validators.required],
       expDescription: ['', Validators.required],
@@ -21,7 +31,7 @@ export class EditExpComponent implements OnInit {
   }
 
   ngOnInit() {
-    const id = this.activatedRouter.snapshot.params['id'];
+    const id = this.data.expId;
     this.experienceServ.detail(id).subscribe(res=>{
       this.expToMod = res;
     },err=>{
@@ -33,13 +43,27 @@ export class EditExpComponent implements OnInit {
   onUpdate(): void{
     this.expToMod.expName = this.editExpForm.value.expName;
     this.expToMod.expDescription = this.editExpForm.value.expDescription;
+    this.expToMod.imgURL=this.imgURL;
 
-    const id = this.activatedRouter.snapshot.params['id'];
+    const id = this.data.expId;
     this.experienceServ.update(id, this.expToMod).subscribe(res=>{
-      this.router.navigate(['/dashboard']);
+      location.reload();
     },err=>{
       console.log(err)
       alert(err.error.msg)
     })
   }
+  uploadImage($event: any){
+    const id = this.data.expId;
+    const name = "edupic#"+id;
+    this.imageService.uploadImage($event, name)
+    .then(url => {
+      this.imgURL=url;
+      this.newimgURL = url;
+      console.log(this.imgURL);
+    })
+    .catch(err => {
+      console.error(err);
+    });
+}
 }

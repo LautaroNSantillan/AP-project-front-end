@@ -1,0 +1,8 @@
+<button mat-icon-button class="float-right" matDialogClose><mat-icon>close</mat-icon></button>
+<mat-dialog-content>
+    <header><h2>Are you sure you want to delete "{{thingtodelete}}" </h2></header>
+    <mat-dialog-actions>
+        <button matDialogClose>Cancel</button>
+        <button  (click)="dialogRef.close('confirm')">Confirm</button>
+    </mat-dialog-actions>
+</mat-dialog-content>

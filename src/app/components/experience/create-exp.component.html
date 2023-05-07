@@ -1,4 +1,6 @@
-<section>
+<button mat-icon-button class="float-right" matDialogClose><mat-icon>close</mat-icon></button>
+<mat-dialog-content>
+  <header>Create Experience</header>
     <form (ngSubmit)="onCreate()" novalidate [formGroup]="newExpForm">
         <div fxLayout="row" fxLayoutAlign="space-between center">
             <mat-form-field>
@@ -15,6 +17,8 @@
           </label>
           <img *ngIf="imageService.imgURL" [src]="imageService.imgURL" alt="" class="w-64">
       </div>
+      <mat-dialog-actions align="end">
         <button mat-raised-button color="accent">Accent</button>
+      </mat-dialog-actions>
       </form>
-</section>
+</mat-dialog-content>

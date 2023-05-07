@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Education } from 'src/app/model/education';
 import { EducationService } from 'src/app/services/education.service';
@@ -19,6 +20,7 @@ export class EditEduComponent implements OnInit {
   eduDescription: string;
 
   constructor(
+    @Inject(MAT_DIALOG_DATA) public data:{ eduId: number },
     private fb: FormBuilder,
     private router: Router,
     private activatedRoute: ActivatedRoute,
@@ -33,7 +35,7 @@ export class EditEduComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const id = this.activatedRoute.snapshot.params['id'];
+    const id = this.data.eduId;
 
     this.educationServ.getEdu(id).subscribe({
       next: (data) => {
@@ -56,12 +58,12 @@ export class EditEduComponent implements OnInit {
 
     const editedEdu = new Education(this.editEduForm.value.eduName, this.editEduForm.value.eduDescription, this.imgURL);
 
-    const id = this.activatedRoute.snapshot.params['id'];
+    const id = this.data.eduId;
     this.educationServ.updateEdu(id, editedEdu).subscribe({
       next: (data) => {
         console.log(data);
         alert("Success");
-        this.router.navigate(['dashboard']);
+        location.reload();
       },
       error: (err) => {
         console.log(err);
@@ -102,7 +104,7 @@ export class EditEduComponent implements OnInit {
 
   
   uploadImage($event: any){
-    const id = this.activatedRoute.snapshot.params['id'];
+    const id = this.data.eduId;
     const name = "edupic#"+id;
     this.imageService.uploadImage($event, name)
     .then(url => {

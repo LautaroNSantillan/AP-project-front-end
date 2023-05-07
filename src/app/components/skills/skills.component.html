@@ -1,6 +1,6 @@
 <section class="container mx-auto">
     <h2 class="text-3xl">MY SKILLS</h2>
-    <button mat-raised-button color="accent" routerLink="/dashboard/create-skill" *ngIf="isLogged">CREATE Skill</button>
+    <button mat-raised-button color="accent" (click)="openCreate()" *ngIf="isLogged">CREATE Skill</button>
 
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-x-7 my-4 gap-y-5 mx-auto">
 
@@ -16,8 +16,8 @@
                 <div class="w-2/5"> <img class="w-full" [src]="skill.imgURL ? skill.imgURL : '../../../../assets/images/no-image.jpg'"
                     alt="" class="w-full"> </div>
             </span>
-            <button *ngIf="isLogged" routerLink='/dashboard/edit-skill/{{skill.id}}'><mat-icon>edit</mat-icon></button>
-            <button *ngIf="isLogged" (click)="disable(skill.id)"><mat-icon>delete</mat-icon></button>
+            <button *ngIf="isLogged" (click)="openEdit(skill.id)"><mat-icon>edit</mat-icon></button>
+            <button *ngIf="isLogged" (click)="openDeleteDialog(skill.id, skill.skillName)"><mat-icon>delete</mat-icon></button>
 
           
         </div>

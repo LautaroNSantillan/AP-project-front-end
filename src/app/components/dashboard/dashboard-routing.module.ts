@@ -10,6 +10,8 @@ import { EditEduComponent } from '../education/edit-edu/edit-edu.component';
 import { CreateSkillComponent } from '../skills/create-skill/create-skill.component';
 import { EditSkillComponent } from '../skills/edit-skill/edit-skill.component';
 import { EditAboutComponent } from '../about/edit-about/edit-about.component';
+import { MockUser } from 'src/app/model/mock-user';
+import { MockUsersComponent } from '../mock-users/mock-users.component';
 
 const routes: Routes = [
   {path: '', component:DashboardComponent, children:[
@@ -23,6 +25,7 @@ const routes: Routes = [
     {path:'edit-skill/:id', component:EditSkillComponent},
     {path:'edit-web-user/:id', component:EditAboutComponent},
     {path:'profile', component:ProfileComponent},
+    {path:'mock-users', component:MockUsersComponent},
     {path:'**', component:HomeComponent},
   ]}
 ];

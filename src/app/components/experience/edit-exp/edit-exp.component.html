@@ -1,4 +1,5 @@
-<section *ngIf="expToMod">
+<button mat-icon-button class="float-right" matDialogClose><mat-icon>close</mat-icon></button>
+<mat-dialog-content *ngIf="expToMod">
     <form (ngSubmit)="onUpdate()" novalidate [formGroup]="editExpForm">
         <div fxLayout="row" fxLayoutAlign="space-between center">
             <mat-form-field>
@@ -8,6 +9,11 @@
             <input matInput placeholder="Experience Description" formControlName="expDescription">
           </mat-form-field>
         </div>
+        <div>
+          Image
+          <input type="file" name="img" placeholder="Image" formControlName="imgURL" (change)="uploadImage($event)" accept=".jpg, .jpeg, .png" >
+          <img *ngIf="newimgURL" [src]="newimgURL" alt="" class="w-64">
+      </div>
         <button mat-raised-button color="accent">Accent</button>
       </form>
-</section>
+</mat-dialog-content>

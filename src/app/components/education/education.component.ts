@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Education } from 'src/app/model/education';
 import { WebUser } from 'src/app/model/web-user';
@@ -6,6 +7,9 @@ import { AuthService } from 'src/app/services/auth.service';
 import { EducationService } from 'src/app/services/education.service';
 import { TokenService } from 'src/app/services/token.service';
 import { WebUserService } from 'src/app/services/web-user.service';
+import { CreateEduComponent } from './create-edu/create-edu.component';
+import { EditEduComponent } from './edit-edu/edit-edu.component';
+import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
 
 @Component({
   selector: 'app-education',
@@ -17,7 +21,14 @@ export class EducationComponent implements OnInit {
   isLogged=false;
   webUser: WebUser = null;
 
-  constructor(private educationServ: EducationService, private tokenServ: TokenService, private auth: AuthService, private webUserService: WebUserService, private router: Router){}
+  constructor(private educationServ: EducationService, 
+    private tokenServ: TokenService, 
+    private auth: AuthService, 
+    private webUserService: WebUserService, 
+    private router: Router,
+    private createDialog: MatDialog,
+    private editDialog: MatDialog,
+    private deleteDialog: MatDialog){}
 
   ngOnInit(): void {
     this.loadEducation();
@@ -54,6 +65,32 @@ export class EducationComponent implements OnInit {
         alert(err.error.msg);
       })
     }
+  }
+
+  openCreate(){
+    this.createDialog.open(CreateEduComponent,{
+      width:'80%',
+    });
+  }
+
+  openEdit(id:number): void{
+    this.editDialog.open(EditEduComponent,{
+      width: '80%',
+      data: { eduId: id }
+    });
+  }
+  openDeleteDialog(id: number, name: string) {
+    const dialogRef = this.deleteDialog.open(DeleteDialogComponent, {
+      data: { thingtodelete: name }
+    });
+
+    dialogRef.componentInstance.thingtodelete = name;
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === 'confirm') {
+        this.disable(id);
+      }
+    });
   }
 
 }

@@ -1,4 +1,4 @@
-<mat-toolbar class="bg-transparent fixed bg-gradient-to-b from-black/50 to-transparent hide-for-md w-full">
+<mat-toolbar class="fixed bg-transparent top-0 left-0 right-0 bg-gradient-to-b from-black/50 to-transparent md:hidden z-50">
 
     <span class="example-spacer"></span>
     <button mat-raised-button color="primary" class="mx-2" *ngFor="let item of menu" [routerLink]="item.redirect" > {{item.name}} </button>

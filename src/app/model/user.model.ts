@@ -2,7 +2,6 @@ export class user{
     id?: number;
     name: string;
     lastName: string;
-    email: string;
     birthdate: Date;
     
 
@@ -10,6 +9,5 @@ export class user{
         this.name = name;
         this.lastName = lastName;
         this.birthdate = birthdate;
-        this.email = email;
     }
 }

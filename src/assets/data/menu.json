@@ -6,7 +6,7 @@
     },
     {
         "name":"Mock users",
-        "redirect":"/dashboard/users",
+        "redirect":"/dashboard/mock-users",
         "icon":"groups"
     }
 ]

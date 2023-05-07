@@ -1,0 +1,22 @@
+<button mat-icon-button class="float-right" matDialogClose><mat-icon>close</mat-icon></button>
+<mat-dialog-content>
+    <form (ngSubmit)="onCreate()" novalidate [formGroup]="form">
+        <div fxLayout="row" fxLayoutAlign="space-between center">
+            <mat-form-field>
+                <input matInput formControlName="name" placeholder="Mock">
+              </mat-form-field>              
+          <mat-form-field>
+            <input matInput placeholder="Mock Last Name" formControlName="lastName">
+          </mat-form-field>
+        </div>
+        <mat-form-field appearance="fill">
+            <mat-label>Choose a date</mat-label>
+            <input matInput [matDatepicker]="picker" formControlName="birthdate"  (dateChange)="onDateSelected()" [value]="selectedDate | date: 'dd/MM/yyyy'" >
+            <p>{{ selectedDate | date: 'dd MMM yyyy' }}</p>
+            <mat-hint>DD/MM/YYYY</mat-hint>
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker format="dd/MM/yyyy"></mat-datepicker>
+          </mat-form-field>
+        <button mat-raised-button color="accent">Accent</button>
+      </form>
+</mat-dialog-content>

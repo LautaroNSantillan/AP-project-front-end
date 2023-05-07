@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Skill } from 'src/app/model/skill';
 import { SkillService } from 'src/app/services/skill.service';
@@ -13,7 +14,12 @@ export class EditSkillComponent implements OnInit{
   skillToMod: Skill = null;
   editSkillForm: FormGroup;
 
-  constructor(private skillService: SkillService, private activatedRoute: ActivatedRoute, private router: Router, private fb: FormBuilder){
+  constructor(
+    private skillService: SkillService, 
+    private activatedRoute: ActivatedRoute, 
+    private router: Router, 
+    private fb: FormBuilder,
+    @Inject(MAT_DIALOG_DATA) public data:{ skillId: number },){
     this.editSkillForm=this.fb.group({
       skillName: ['', Validators.required],
       skillPercentage: ['', Validators.required],
@@ -21,11 +27,10 @@ export class EditSkillComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    const id  = this.activatedRoute.snapshot.params['id'];
+    const id  = this.data.skillId;
     
     this.skillService.getSkill(id).subscribe({
       next: res=>{
-        console.log("AAAAAAAAAA"+res);
         this.skillToMod=res;
       },
       error: err => {
@@ -36,7 +41,7 @@ export class EditSkillComponent implements OnInit{
   }
 
   onUpdate(): void {
-    const id  = this.activatedRoute.snapshot.params['id'];
+    const id  = this.data.skillId;
 
     this.skillToMod.skillName=this.editSkillForm.value.skillName;
     this.skillToMod.percentage=this.editSkillForm.value.skillPercentage;

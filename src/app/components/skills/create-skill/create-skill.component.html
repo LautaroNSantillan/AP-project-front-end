@@ -1,4 +1,5 @@
-<section>
+<button mat-icon-button class="float-right" matDialogClose><mat-icon>close</mat-icon></button>
+<mat-dialog-content>
     <form (ngSubmit)="onCreate()" novalidate [formGroup]="newSkillForm">
         <div fxLayout="row" fxLayoutAlign="space-between center">
             <mat-form-field>
@@ -17,4 +18,4 @@
       </div>
         <button mat-raised-button color="accent">Accent</button>
       </form>
-</section>
+</mat-dialog-content>
