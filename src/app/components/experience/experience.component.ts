@@ -81,13 +81,19 @@ export class ExperienceComponent implements OnInit {
   }
 
   openCreate() {
-    this.createDialog.open(CreateExpComponent, {
-      width: '80%',
+   const dialogRef= this.createDialog.open(CreateExpComponent, {
+      width: '60%',
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.loadExperience();
     });
   }
 
    openEdit(id:number){
-     this.editDialog.open(EditExpComponent,{data:{expId: id}, width:'80%',});
+   const dialogRef=  this.editDialog.open(EditExpComponent,{data:{expId: id}, width:'60%',});
+   dialogRef.afterClosed().subscribe(result => {
+    this.loadExperience();
+  });
    }
   // openDeleteDialog(id: number, name: string) {
   //   const dialogRef = this.deleteDialog.open(DeleteDialogComponent, {

@@ -1,23 +1,117 @@
 <app-navbar></app-navbar>
+<app-sidenav></app-sidenav>
 <div class="h-screen flex justify-center items-center" *ngIf="loading">
     <mat-spinner diameter="50"></mat-spinner>
 </div>
-<div class="flex justify-center items-center min-h-screen" *ngIf="!loading">
-    <form class="flex justify-center items-center flex-col space-y-3 w-72" [formGroup]="form" (ngSubmit)="onLogin()" >
+<!-- <div class="flex justify-center items-center min-h-screen" *ngIf="!loading">
+    <form class="flex justify-center items-center flex-col space-y-3 w-72" [formGroup]="form">
         <img src="../../../assets/images/usuario.png" alt="USER IMAGE" class="w-1/2 mx-auto">
         <mat-form-field appearance="fill" class="w-full">
             <mat-label>Fill your username</mat-label>
             <input matInput placeholder="Your username" autocomplete="off" formControlName="user">
-            <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+            <mat-icon matSuffix>person</mat-icon>
         </mat-form-field>
         <mat-form-field appearance="fill" class="w-full">
             <mat-label>Fill your password</mat-label>
-            <input type="password" matInput placeholder="**********" autocomplete="off" formControlName="pwd">
-            <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+            <input type="{{ hidePassword ? 'password' : 'text' }}" matInput placeholder="**********" autocomplete="off"
+                formControlName="pwd">
+            <button mat-icon-button matSuffix (click)="togglePasswordVisibility()">
+                <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+            </button>
+            
         </mat-form-field>
-        <button type="submit" mat-raised-button color="primary" class="w-full" [disabled]="form.invalid">Login</button>
-    </form>
+        <div *ngIf="form.invalid; else validForm">
+            <button mat-raised-button disabled color="primary" class="">*Please fill out all required fields.</button>
+          </div>
+          <ng-template #validForm>
+            <div class="button-block flex justify-center items-center mx-auto my-3"  matTooltip="Login">
+                <button class="social" ><a href="#" (click)="onLogin()"><i class="fa-sharp fa-solid fa-right-to-bracket "></i></a>
+                </button>
+            </div>
+          </ng-template>
+       
+    </form> -->
+<!-- </div> -->
+<div class="h-screen flex flex-col justify-center ">
+    <h1 class="text-5xl py-3 pt-9 font-extrabold text-center i-rainbow-underline mb-5 mt-10 text-pinkgray font-abril italic w-fit mx-auto">CHOOSE</h1>
+<section class="w-3/5 h-3/5 mx-auto flex justify-around items-center  mt-5 bg-indigo-300/25  rounded-md">
+    <!-- LOGIN -->
+    <div id="mainButton" >
+        <div class="btn-text font-bold" (click)="openForm()">Sign In</div>
+        <div class="modal ">
+            <div class="close-button" (click)="closeForm()">x</div>
+            <div class="form-title font-bold">Sign In</div>
+            <div class="input-group">
+                <input type="text" id="name" [(ngModel)]="username" (blur)="checkInput($event.target)" />
+                <label for="name" class="font-semibold">Username</label>
+            </div>
+            <div class="input-group">
+                <input type="password" id="password" [(ngModel)]="password" (blur)="checkInput($event.target)" />
+                <label for="password" class="font-semibold">Password</label>
+            </div>
+            <div *ngIf="isLoginFormEmpty(); else validForm">
+                <button mat-raised-button disabled color="primary">*Please fill out all required fields.</button>
+            </div>
+            <ng-template #validForm>
+                <div class="button-block flex justify-center items-center mx-auto my-3" matTooltip="Login">
+                    <button class="social"><a  (click)="onLogin()"><i
+                                class="fa-sharp fa-solid fa-right-to-bracket "></i></a>
+                    </button>
+                </div>
+            </ng-template>
+
+        </div>
+    </div>
+
+    <!-- REGISTER -->
+    <div id="regButton">
+        <div class="btn-text font-bold " (click)="openFormReg(); hidebtn()">Sign Up</div>
+        <div class="modal z-9999">
+            <div class="close-button" (click)="closeFormReg(); showbtn()">x</div>
+            <div class="form-title font-bold">Sign Up</div>
+            <div class="input-group">
+                <input type="text" id="nameReg" [(ngModel)]="nameReg" (change)="checkInput($event.target)" />
+                <label for="nameReg" class="font-semibold">Name</label>
+            </div>
+            <div class="input-group">
+                <input type="text" id="lastNameReg" [(ngModel)]="lastNameReg" (change)="checkInput($event.target)" />
+                <label for="lastNameReg" class="font-semibold">Last Name</label>
+            </div>
+            <div class="input-group">
+                <input type="text" id="emailReg" [(ngModel)]="emailReg" (change)="checkBoth($event.target)" />
+                <label for="emailReg" class="font-semibold">Email</label>
+            </div>
+
+            <p class="text-xs text-left " *ngIf="!validEmail"> Enter a valid email
+            <p>
+
+            <div class="input-group">
+                <input type="text" id="usernameReg" [(ngModel)]="usernameReg" (change)="checkInput($event.target)" />
+                <label for="usernameReg" class="font-semibold">Username</label>
+            </div>
+            <div class="input-group">
+                <input type="password" id="passwordReg" [(ngModel)]="passwordReg"
+                    (change)="checkInput($event.target)" />
+                <label for="passwordReg" class="font-semibold">Password</label>
+            </div>
+            <div *ngIf="isRegistrationFormEmpty(); else validForm">
+                <button mat-raised-button disabled color="primary">*Please fill out all required fields.</button>
+            </div>
+            <ng-template #validForm>
+                <div class="button-block flex justify-center items-center mx-auto my-3" matTooltip="Login">
+                    <button class="social"><a href="#" (click)="onRegister()"><i
+                                class="fa-sharp fa-solid fa-right-to-bracket "></i></a>
+                    </button>
+                </div>
+            </ng-template>
+
+
+        </div>
+    </div>
+</section>
 </div>
+
+
 
 <!-- <div class="flex justify-center items-center min-h-screen" *ngIf="!loading">
     <form class="flex justify-center items-center flex-col space-y-3 w-72" (ngSubmit)="login()" >

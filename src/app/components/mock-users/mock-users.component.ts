@@ -67,7 +67,7 @@ export class MockUsersComponent implements OnInit{
 
   openEdit(id:number): void{
     const dialogRef =this.editDialog.open(EditMockUsersComponent,{
-      width: '80%',
+      width: '60%',
       data: { id: id }
     });
 

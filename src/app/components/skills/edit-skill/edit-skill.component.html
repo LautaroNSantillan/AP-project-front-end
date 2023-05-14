@@ -1,5 +1,27 @@
-<section *ngIf="skillToMod">
-    <form (ngSubmit)="onUpdate()" novalidate [formGroup]="editSkillForm">
+<section *ngIf="skillToMod" class="py-8">
+  <form novalidate>
+    <div class="flex flex-col justify-center items-center form__group">
+    <div>
+      <input type="text" class="form__input" name="skillName" placeholder="Skill Name" [(ngModel)]="skillToMod.skillName" id="skillName" />
+      <label for="skillName" class="form__label">Skill Name</label>
+    </div>
+    <div>
+      <input type="number" class="form__input" name="skillPer" placeholder="Skill Percentage" [(ngModel)]="skillToMod.percentage" id="skillPer" />
+      <label for="skillPer" class="form__label">Skill Percentage</label>
+    </div>
+    <div class="mt-5">
+      <label class=" drop-container ">
+        <input type="file" name="img" placeholder="Image"  (change)="uploadImage($event)"
+          accept=".jpg, .jpeg, .png">
+      </label>
+      <p class="form__label">Education Image</p>
+      <img *ngIf="imageService.imgURL" [src]="imageService.imgURL" alt="" class="w-64">
+    </div>
+    <button class="button" matDialogClose (click)="onUpdate()">EDIT</button>
+  </div>
+  </form>
+
+    <!-- <form (ngSubmit)="onUpdate()" novalidate [formGroup]="editSkillForm">
         <div fxLayout="row" fxLayoutAlign="space-between center">
             <mat-form-field>
                 <input matInput formControlName="skillName" placeholder="Skill Name">
@@ -9,5 +31,5 @@
           </mat-form-field>
         </div>
         <button mat-raised-button color="accent">Accent</button>
-      </form>
+      </form> -->
 </section>

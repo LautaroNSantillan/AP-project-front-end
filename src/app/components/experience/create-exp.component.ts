@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Experience } from 'src/app/model/experience';
 import { WebUser } from 'src/app/model/web-user';
 import { ExperienceService } from 'src/app/services/experience.service';
+import { SwalService } from 'src/app/services/swal.service';
 import { UploadImageService } from 'src/app/services/upload-image.service';
 import { WebUserService } from 'src/app/services/web-user.service';
 
@@ -19,7 +20,12 @@ export class CreateExpComponent implements OnInit {
   newExpDescription: string="";
   imgURL: string;
 
-  constructor(private experienceServ: ExperienceService, private router: Router,  private fb: FormBuilder, public imageService: UploadImageService, private webUserService: WebUserService){
+  constructor(private experienceServ: ExperienceService, 
+    private router: Router,  
+    private fb: FormBuilder, 
+    public imageService: UploadImageService, 
+    private webUserService: WebUserService,
+    private swal: SwalService){
     this.newExpForm = this.fb.group({
       expName: ['', Validators.required],
       expDescription: ['', Validators.required],
@@ -37,23 +43,18 @@ export class CreateExpComponent implements OnInit {
   }
 
   onCreate(): void {
-    this.newExpName = this.newExpForm.value.expName;
-    this.newExpDescription = this.newExpForm.value.expDescription;
     this.imgURL=this.imageService.imgURL;
-    console.log(this.newExpName, this.newExpDescription, this.imgURL)
 
     const exp = new Experience(this.newExpName, this.newExpDescription, this.imgURL);
     this.experienceServ.create(exp).subscribe(data => {
-      alert("Experience Added")
-      this.router.navigate(['/dashboard'])
+      this.swal.successAlert("Success!", "Experience Added");
     }, err => {
-      console.log()
-      alert(err.error)
+     this.swal.errorAlert("Error!", err.error.msg);
     })
   }
 
   uploadImage($event: any){
-    const name = "user" + this.webUser.name+ "exppic"+ this.newExpForm.value.expName;
+    const name = "user" + this.webUser.name+ "exppic"+ this.newExpName;
     this.imageService.uploadImage($event, name);
   }
 }

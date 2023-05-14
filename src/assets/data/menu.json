@@ -2,11 +2,13 @@
     {
         "name":"Home",
         "redirect":"/dashboard/home",
-        "icon":"home"
+        "icon":"home",
+        "id":"home"
     },
     {
         "name":"Mock users",
         "redirect":"/dashboard/mock-users",
-        "icon":"groups"
+        "icon":"groups",
+        "id":"mock"
     }
 ]

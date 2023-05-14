@@ -26,7 +26,7 @@ const routes: Routes = [
     {path:'create-education', component:CreateEduComponent, canActivate:[AdminGuard]},
     {path:'create-skill', component:CreateSkillComponent, canActivate:[AdminGuard]},
     {path:'edit-skill/:id', component:EditSkillComponent, canActivate:[AdminGuard]},
-    {path:'edit-web-user/:id', component:EditAboutComponent, canActivate:[AdminGuard]},
+    {path:'edit-web-user/:id', component:EditAboutComponent, canActivate:[LoggedInGuard]},
     {path:'profile', 
     component:ProfileComponent, 
     canActivate:[LoggedInGuard],

@@ -82,16 +82,22 @@ export class EducationComponent implements OnInit {
   }
 
   openCreate() {
-    this.createDialog.open(CreateEduComponent, {
-      width: '80%',
+   const dialog=  this.createDialog.open(CreateEduComponent, {
+      width: '60%',
+    });
+    dialog.afterClosed().subscribe(result => {
+      this.loadEducation();
     });
   }
 
  openEdit(id:number): void{
-   this.editDialog.open(EditEduComponent,{
-     width: '80%',
+   const dialog = this.editDialog.open(EditEduComponent,{
+     width: '60%',
     data: { eduId: id }
    });
+   dialog.afterClosed().subscribe(result => {
+    this.loadEducation();
+  });
  }
   // openDeleteDialog(id: number, name: string) {
   //   const dialogRef = this.deleteDialog.open(DeleteDialogComponent, {

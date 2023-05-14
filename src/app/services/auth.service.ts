@@ -25,20 +25,20 @@ export class AuthService {
   }
   isLogged(): boolean {
     const token = this.tokenService.getToken();
-    console.log('token:', token);
+
     if (token) {
       const decodedToken = jwt_decode(token) as { exp: number };
-      console.log('decodedToken.exp:', decodedToken.exp);
+
       const currentTime = Math.floor(Date.now() / 1000);
-      console.log('currentTime:', currentTime);
+
       if (decodedToken.exp < currentTime) {
-        console.log('token is expired');
+
         return false; // Token is expired
       }
-      console.log('token is valid');
+
       return true; // Token is valid
     }
-    console.log('no token found');
+
     return false; // No token found
   }
 }

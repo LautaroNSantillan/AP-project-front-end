@@ -1,6 +1,9 @@
 .example-spacer {
     flex: 1 1 auto;
   }
+  mat-toolbar{
+    z-index: 998;
+  }
 
   .hide-for-md{
     display: none!important;

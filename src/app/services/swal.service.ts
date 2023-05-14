@@ -23,7 +23,7 @@ export class SwalService {
           title: 'Deleted',
           text: `${name} has been deleted.`,
           icon: 'success',
-          timer: 3000
+          timer: 6000
         });
       }
     });
@@ -34,7 +34,7 @@ export class SwalService {
       icon: 'success',
       title: title,
       text: text,
-      timer: 3000,
+      timer: 6000,
       timerProgressBar: true,
       position: 'top-end',
       toast: true,
@@ -51,7 +51,7 @@ export class SwalService {
       toast: true,
       showConfirmButton: false,
       timerProgressBar: true,
-      timer: 3000
+      timer: 6000
     });
   }
 
@@ -62,7 +62,16 @@ export class SwalService {
       icon: 'error',
       title: 'Login Failed',
       text: 'Please check your credentials and try again',
-      timer: 3000
+      timer: 6000
     })
+  }
+
+  modified(msg: string){
+    Swal.fire({
+      icon: 'success',
+      title: 'Success!',
+      text: msg,
+      timer: 6000
+    });
   }
 }

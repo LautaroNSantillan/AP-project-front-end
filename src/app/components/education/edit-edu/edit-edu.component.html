@@ -1,6 +1,28 @@
 <button mat-icon-button class="float-right" matDialogClose><mat-icon>close</mat-icon></button>
 <mat-dialog-content *ngIf="educationToEdit">
-    <form (ngSubmit)="updateEdu()" novalidate [formGroup]="editEduForm">
+  <form novalidate >
+    <div class="flex flex-col justify-center items-center form__group">
+      <div>
+        <input type="text" class="form__input" name="eduName" placeholder="Education Name" [(ngModel)]="eduName" id="eduName" />
+        <label for="eduName" class="form__label">Education Name</label>
+      </div>
+      <div>
+        <input type="text" class="form__input" name="eduDescription" placeholder="Education Description" [(ngModel)]="eduDescription" id="eduDescription" />
+        <label for="eduDescription" class="form__label">Education Description</label>
+      </div>
+      <div class="mt-5">
+        <label class=" drop-container ">
+          <input type="file" name="img" placeholder="Image"  (change)="uploadImage($event)"
+            accept=".jpg, .jpeg, .png">
+        </label>
+        <p class="form__label">Education Image</p>
+        <img *ngIf="imageService.imgURL" [src]="imageService.imgURL" alt="" class="w-64 mx-auto">
+      </div>
+    </div>
+    <button class="button" matDialogClose (click)="updateEdu()">EDIT</button>
+  </form>
+
+    <!-- <form (ngSubmit)="updateEdu()" novalidate [formGroup]="editEduForm">
         <div fxLayout="row" fxLayoutAlign="space-between center">
             <mat-form-field>
                 <input matInput formControlName="eduName" placeholder="Education Name">
@@ -17,5 +39,5 @@
           </div>
           </div>
         <button mat-raised-button color="accent">Accent</button>
-      </form>
+      </form> -->
 </mat-dialog-content>

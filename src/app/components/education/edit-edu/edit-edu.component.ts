@@ -4,6 +4,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Education } from 'src/app/model/education';
 import { EducationService } from 'src/app/services/education.service';
+import { SwalService } from 'src/app/services/swal.service';
 import { UploadImageService } from 'src/app/services/upload-image.service';
 
 @Component({
@@ -16,16 +17,17 @@ export class EditEduComponent implements OnInit {
   editEduForm: FormGroup;
   eduName: string;
   imgURL: string;
-  newimgURL:string;
+  newimgURL: string;
   eduDescription: string;
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data:{ eduId: number },
+    @Inject(MAT_DIALOG_DATA) public data: { eduId: number },
     private fb: FormBuilder,
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private educationServ: EducationService,
-    public imageService: UploadImageService
+    public imageService: UploadImageService,
+    private swal: SwalService
   ) {
     this.editEduForm = fb.group({
       eduName: ['', Validators.required],
@@ -39,50 +41,45 @@ export class EditEduComponent implements OnInit {
 
     this.educationServ.getEdu(id).subscribe({
       next: (data) => {
-        console.log(data);
         this.educationToEdit = data;
       },
       error: (err) => {
-        console.log(err);
         alert(err.error);
-      }
+      },
     });
   }
 
-  
-
   updateEdu(): void {
-    this.eduName=this.editEduForm.value.eduName;
-    this.eduDescription=this.editEduForm.value.eduDescription;
     console.log(this.eduName, this.eduDescription);
 
-    const editedEdu = new Education(this.editEduForm.value.eduName, this.editEduForm.value.eduDescription, this.imgURL);
+    const editedEdu = new Education(
+      this.eduName,
+      this.eduDescription,
+      this.imgURL
+    );
 
     const id = this.data.eduId;
     this.educationServ.updateEdu(id, editedEdu).subscribe({
       next: (data) => {
-        console.log(data);
-        alert("Success");
-        location.reload();
+        this.swal.successAlert('Success!', data.msg);
       },
       error: (err) => {
-        console.log(err);
-        alert(err.error.msg);
-      }
+        this.swal.errorAlert('Error!', err.error.msg);
+      },
     });
   }
 
   // updateEdu(): void {
   //   this.eduName = this.editEduForm.value.eduName;
   //   this.eduDescription = this.editEduForm.value.eduDescription;
-  
+
   //   const id = this.activatedRoute.snapshot.params['id'];
   //   const name = "edupic#" + id;
-  
+
   //   this.imageService.uploadImage($event, name)
   //     .then(downloadURL => {
   //       const editedEdu = new Education(this.eduName, this.eduDescription, downloadURL);
-  
+
   //       this.educationServ.updateEdu(id, editedEdu).subscribe({
   //         next: (data) => {
   //           console.log(data);
@@ -100,20 +97,19 @@ export class EditEduComponent implements OnInit {
   //       alert("Error uploading image");
   //     });
   // }
-  
 
-  
-  uploadImage($event: any){
+  uploadImage($event: any) {
     const id = this.data.eduId;
-    const name = "edupic#"+id;
-    this.imageService.uploadImage($event, name)
-    .then(url => {
-      this.imgURL=url;
-      this.newimgURL = url;
-      console.log(this.imgURL);
-    })
-    .catch(err => {
-      console.error(err);
-    });
-}
+    const name = 'edupic#' + id;
+    this.imageService
+      .uploadImage($event, name)
+      .then((url) => {
+        this.imgURL = url;
+        this.newimgURL = url;
+        console.log(this.imgURL);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }
 }

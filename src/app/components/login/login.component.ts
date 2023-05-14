@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Renderer2 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
@@ -22,8 +22,19 @@ export class LoginComponent {
   loginUser!: LoginUser;
   username!: string;
   password!: string;
+
+  validEmail:boolean;
+  validForm:boolean = false;
+
+  usernameReg: string;
+  passwordReg: string;
+  emailReg: string;
+  nameReg: string;
+  lastNameReg: string;
+
   roles: string[] = [];
   errorMsg!: string;
+  hidePassword = true;
 
   constructor(
     private fb: FormBuilder,
@@ -33,7 +44,8 @@ export class LoginComponent {
     private authService: AuthService,
     private swal: SwalService,
     private aRouter: ActivatedRoute,
-    private titleService: Title
+    private titleService: Title,
+    private renderer: Renderer2
   ) {
     this.form = this.fb.group({
       user: ['', Validators.required],
@@ -43,10 +55,12 @@ export class LoginComponent {
   ngOnInit() {
     this.setUp();
     this.setTitle();
+    this.listenClose();
+    this.listenCloseReg();
   }
 
   onLogin(): void {
-    this.loginUser = new LoginUser(this.form.value.user, this.form.value.pwd);
+    this.loginUser = new LoginUser(this.username, this.password);
     this.authService.login(this.loginUser).subscribe({
       next: (data) => {
         this.isLoggedIn = true;
@@ -54,11 +68,13 @@ export class LoginComponent {
         console.log(data);
         this.tokenService.setToken(data.token);
         this.tokenService.setUsername(data.username);
+        console.log(data.username);
         this.tokenService.setAuthorities(data.authorities);
         this.roles = data.authorities;
         this.router.navigate(['/dashboard']);
       },
       error: (err) => {
+        console.log(err);
         this.form.reset();
         this.isLoggedIn = false;
         this.loginFailed = true;
@@ -68,19 +84,17 @@ export class LoginComponent {
     });
   }
 
-  //register
+  hidebtn() {
+    let btn=document.getElementById('mainButton');
+    btn.classList.add('hidden');
+  }
+  showbtn() {
+    let btn=document.getElementById('mainButton');
+    btn.classList.remove('hidden');
+  }
 
-  login() {
-    const userInput = this.form.value.user;
-    const pwdInput = this.form.value.pwd;
+  onRegister(){
 
-    if (userInput == 'user' && pwdInput == 'pwd') {
-      this.isLoading();
-      this.router.navigate(['dashboard']);
-    } else {
-      this.triggerLoginError();
-      this.form.reset();
-    }
   }
 
   triggerLoginError() {
@@ -111,4 +125,76 @@ export class LoginComponent {
       this.titleService.setTitle(data['title']);
     });
   }
+
+  togglePasswordVisibility() {
+    this.hidePassword = !this.hidePassword;
+  }
+
+  openForm() {
+    let button = document.getElementById('mainButton');
+    button.className = 'active';
+  }
+
+  isRegistrationFormEmpty(): boolean {
+    return !this.nameReg || !this.lastNameReg || !this.emailReg || !this.usernameReg || !this.passwordReg;
+  }
+  isLoginFormEmpty(): boolean {
+    return !this.username || !this.password ;
+  }
+
+  checkInput(input: any) {
+  if (input.value.length > 0) {
+    input.className = 'active';
+  } else {
+    input.className = '';
+    console.log(input.value);
+  }
+}
+
+checkBoth(input: any) {
+  this.checkInput(input);
+  this.checkEmail();
+}
+
+checkEmail() {
+  const emailRegex = /\S+@\S+\.\S+/;
+  if(emailRegex.test(this.emailReg)){
+    this.validEmail = true;
+  }else{
+    this.validEmail = false;
+  }
+  console.log(this.validEmail);
+}
+
+
+  closeForm() {
+    let button = document.getElementById('mainButton');
+    button.className = '';
+  }
+  listenClose() {
+    this.renderer.listen('document', 'keyup', (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        this.closeForm();
+      }
+    });
+  }
+
+
+  openFormReg(){
+    let button = document.getElementById('regButton');
+    button.className = 'active';
+  }
+
+closeFormReg(){
+  let button = document.getElementById('regButton');
+  button.className = '';
+}
+listenCloseReg(){
+  this.renderer.listen('document', 'keyup', (e: KeyboardEvent) => {
+    if (e.key === "Escape") {
+      this.closeFormReg();
+    }
+  });
+  this.showbtn();
+}
 }

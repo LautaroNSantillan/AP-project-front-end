@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Skill } from 'src/app/model/skill';
 import { WebUser } from 'src/app/model/web-user';
 import { SkillService } from 'src/app/services/skill.service';
+import { SwalService } from 'src/app/services/swal.service';
 import { UploadImageService } from 'src/app/services/upload-image.service';
 import { WebUserService } from 'src/app/services/web-user.service';
 
@@ -13,10 +14,17 @@ import { WebUserService } from 'src/app/services/web-user.service';
   styleUrls: ['./create-skill.component.scss']
 })
 export class CreateSkillComponent {
+  skillName: string;
+  skillPer:number;
   webUser: WebUser;
   newSkillForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private skillService: SkillService, private router: Router, private webUserService: WebUserService, public imageService: UploadImageService){
+  constructor(private fb: FormBuilder, 
+    private skillService: SkillService, 
+    private router: Router, 
+    private webUserService: WebUserService, 
+    public imageService: UploadImageService,
+    private swal: SwalService){
     this.newSkillForm = this.fb.group({
       skillName: ['', Validators.required],
       skillPercentage: ['', Validators.required],
@@ -32,24 +40,20 @@ export class CreateSkillComponent {
   }
 
   onCreate(): void{
-    const skill = new Skill(this.newSkillForm.value.skillName, this.newSkillForm.value.skillPercentage, this.imageService.imgURL);
-    console.log(skill);
+    const skill = new Skill(this.skillName, this.skillPer, this.imageService.imgURL);
 
     this.skillService.save(skill).subscribe({
       next:res=>{
-        console.log(res);
-        alert(res.msg);
-        this.router.navigate(['dashboard']);
+        this.swal.successAlert("Success!", res.msg);
       },
       error:err=>{
-        console.log(err);
-        alert(err.error.msg)
+        this.swal.errorAlert("Error!", err.error.msg);
       }
     })
   }
 
   uploadImage($event: any){
-    const name = "user" + this.webUser.name+ "skillimg"+ this.newSkillForm.value.skillName;
+    const name = "user" + this.webUser.name+ "skillimg"+ this.skillName;
     this.imageService.uploadImage($event, name);
   }
 

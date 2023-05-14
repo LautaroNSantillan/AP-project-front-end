@@ -4,6 +4,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Experience } from 'src/app/model/experience';
 import { ExperienceService } from 'src/app/services/experience.service';
+import { SwalService } from 'src/app/services/swal.service';
 import { UploadImageService } from 'src/app/services/upload-image.service';
 
 @Component({
@@ -18,11 +19,12 @@ export class EditExpComponent implements OnInit {
   expToMod: Experience = null;
 
   constructor(
-    private imageService: UploadImageService,
+    public imageService: UploadImageService,
     private experienceServ: ExperienceService, 
     private activatedRouter: ActivatedRoute, 
     private router: Router, 
     private fb: FormBuilder,
+    private swal: SwalService,
     @Inject(MAT_DIALOG_DATA) public data:{ expId: number }){
     this.editExpForm=this.fb.group({
       expName: ['', Validators.required],
@@ -41,16 +43,13 @@ export class EditExpComponent implements OnInit {
   }
 
   onUpdate(): void{
-    this.expToMod.expName = this.editExpForm.value.expName;
-    this.expToMod.expDescription = this.editExpForm.value.expDescription;
     this.expToMod.imgURL=this.imgURL;
 
     const id = this.data.expId;
     this.experienceServ.update(id, this.expToMod).subscribe(res=>{
-      location.reload();
+      this.swal.successAlert("Success!", res.msg);
     },err=>{
-      console.log(err)
-      alert(err.error.msg)
+     this.swal.errorAlert("Error!", err.error.msg);
     })
   }
   uploadImage($event: any){

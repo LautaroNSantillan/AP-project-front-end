@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Education } from 'src/app/model/education';
 import { WebUser } from 'src/app/model/web-user';
 import { EducationService } from 'src/app/services/education.service';
+import { SwalService } from 'src/app/services/swal.service';
 import { UploadImageService } from 'src/app/services/upload-image.service';
 import { WebUserService } from 'src/app/services/web-user.service';
 
@@ -28,7 +29,12 @@ export class CreateEduComponent implements OnInit{
     })
   }
 
-  constructor(private fb : FormBuilder, private router: Router, private educationServ: EducationService, public imageService: UploadImageService, private webUserService: WebUserService){
+  constructor(private fb : FormBuilder, 
+    private router: Router, 
+    private educationServ: EducationService, 
+    public imageService: UploadImageService, 
+    private webUserService: WebUserService,
+    private swal: SwalService){
     this.newEduForm = fb.group({
       eduName: ['', Validators.required],
       eduDescription: ['', Validators.required],
@@ -37,27 +43,21 @@ export class CreateEduComponent implements OnInit{
   }
 
   onCreate(): void{
-
-    this.eduName=this.newEduForm.value.eduName;
-    this.eduDescription=this.newEduForm.value.eduDescription;
     this.imgURL=this.imageService.imgURL;
     console.log(this.eduName, this.eduDescription);
 
     const education = new Education(this.eduName, this.eduDescription, this.imgURL);
 
     this.educationServ.saveEdu(education).subscribe(data => {
-      console.log(data);
-      alert("correcto");
-      this.router.navigate(['dashboard']);
+      this.swal.successAlert("Created!", data.msg);
     },err=>{
-      console.log(err);
-      alert(err.error.msg);
+      this.swal.successAlert("Error!", err.error.msg);
     })
   }
 
 
   uploadImage($event: any){
-    const name = "user" + this.webUser.name+ "edupic"+ this.newEduForm.value.eduName;
+    const name = "user" + this.webUser.name+ "edupic"+ this.eduName;
     this.imageService.uploadImage($event, name);
   }
 

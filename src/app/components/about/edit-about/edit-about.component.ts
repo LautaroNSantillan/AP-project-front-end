@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { WebUser } from 'src/app/model/web-user';
+import { SwalService } from 'src/app/services/swal.service';
 import { UploadImageService } from 'src/app/services/upload-image.service';
 import { WebUserService } from 'src/app/services/web-user.service';
 
@@ -12,13 +14,19 @@ import { WebUserService } from 'src/app/services/web-user.service';
 })
 export class EditAboutComponent implements OnInit{
   webUser: WebUser = null;
+  @Output() updateUser: EventEmitter<any> = new EventEmitter()
 
 
-  constructor(private activatedRoute: ActivatedRoute, private webUserService: WebUserService, private router: Router, public imageService: UploadImageService){
+  constructor(private activatedRoute: ActivatedRoute, 
+    private webUserService: WebUserService, 
+    private router: Router, 
+    public imageService: UploadImageService,
+    @Inject(MAT_DIALOG_DATA) public data:{ id: number },
+    private swal: SwalService,){
   }
 
   ngOnInit( ): void {
-    const id = this.activatedRoute.snapshot.params['id'];
+    const id = this.data.id;
 
     this.webUserService.getWebUser(id).subscribe({
       next: res =>{
@@ -33,23 +41,21 @@ export class EditAboutComponent implements OnInit{
   }
 
   onUpdate(){
-    const id = this.activatedRoute.snapshot.params['id'];
+    const id = this.data.id;
     this.webUser.img=this.imageService.imgURL;
     this.webUserService.updateWebUser(id, this.webUser).subscribe({
       next:res=>{
-        console.log(res.msg);
-        alert(res.msg);
-        this.router.navigate(['/dashboard'])
+        this.swal.modified(res.msg);
+        this.updateUser.emit();
     },
       error:err=>{
-      console.log(err)
-      alert(err.error.msg)
+        this.swal.errorAlert("Error!", err.error.msg);
     }
     });   
   }
 
   uploadImage($event: any){
-    const id = this.activatedRoute.snapshot.params['id'];
+    const id = this.data.id;
     const name = "profilepicuser#"+id;
     this.imageService.uploadImage($event, name);
   }

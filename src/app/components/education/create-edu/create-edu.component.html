@@ -1,22 +1,25 @@
 <button mat-icon-button class="float-right" matDialogClose><mat-icon>close</mat-icon></button>
 <mat-dialog-content>
-    <form (ngSubmit)="onCreate()" novalidate [formGroup]="newEduForm">
-        <div fxLayout="row" fxLayoutAlign="space-between center">
-            <mat-form-field>
-                <input matInput formControlName="eduName" placeholder="Education Name">
-              </mat-form-field>              
-          <mat-form-field>
-            <input matInput placeholder="Education Description" formControlName="eduDescription">
-          </mat-form-field>
-        </div>
-        <div>
-          <label>
-              Image
-              <input type="file" name="img" placeholder="Image" formControlName="imgURL" (change)="uploadImage($event)" accept=".jpg, .jpeg, .png" >
-          </label>
-          <img *ngIf="imageService.imgURL" [src]="imageService.imgURL" alt="" class="w-64">
+  <form novalidate>
+    <div class="flex flex-col justify-center items-center form__group">
+      <div>
+        <input type="text" class="form__input" name="eduName" placeholder="Education Name" [(ngModel)]="eduName" id="eduName" />
+        <label for="eduName" class="form__label">Education Name</label>
       </div>
-        <button mat-raised-button color="accent">Accent</button>
-      </form>
+      <div>
+        <input type="text" class="form__input" name="eduDescription" placeholder="Education Description" [(ngModel)]="eduDescription"
+          id="eduDescription" />
+        <label for="eduDescription" class="form__label">Education Description</label>
+      </div>
+      <div class="mt-5">
+        <label class=" drop-container ">
+          <input type="file" name="img" placeholder="Image" [(ngModel)]="webUser.img" (change)="uploadImage($event)"
+            accept=".jpg, .jpeg, .png">
+        </label>
+        <p class="form__label">Profile Image</p>
+        <img *ngIf="imageService.imgURL" [src]="imageService.imgURL" alt="" class="w-64">
+      </div>
+      <button class="button" matDialogClose (click)="onCreate()">CREATE</button>
+    </div>
+  </form>
 </mat-dialog-content>
-

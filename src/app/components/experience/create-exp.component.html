@@ -1,7 +1,29 @@
 <button mat-icon-button class="float-right" matDialogClose><mat-icon>close</mat-icon></button>
 <mat-dialog-content>
   <header>Create Experience</header>
-    <form (ngSubmit)="onCreate()" novalidate [formGroup]="newExpForm">
+  <form novalidate >
+    <div class="flex flex-col justify-center items-center form__group">
+      <div>
+        <input type="text" class="form__input" name="newExpName" placeholder="Experience Name" [(ngModel)]="newExpName" id="newExpName" />
+        <label for="newExpName" class="form__label">Experience Name</label>
+      </div>
+      <div>
+        <input type="text" class="form__input" name="newExpDescription" placeholder="Experience Name" [(ngModel)]="newExpDescription" id="newExpDescription" />
+        <label for="newExpDescription" class="form__label">Experience Description</label>
+      </div>
+      <div class="mt-5">
+        <label class=" drop-container ">
+          <input type="file" name="img" placeholder="Image" [(ngModel)]="webUser.img" (change)="uploadImage($event)"
+            accept=".jpg, .jpeg, .png">
+        </label>
+        <p class="form__label">Profile Image</p>
+        <img *ngIf="imageService.imgURL" [src]="imageService.imgURL" alt="" class="w-64 mx-auto">
+      </div>
+      <button class="button" matDialogClose (click)="onCreate()">CREATE</button>
+    </div>
+  </form>
+
+    <!-- <form (ngSubmit)="onCreate()" novalidate [formGroup]="newExpForm">
         <div fxLayout="row" fxLayoutAlign="space-between center">
             <mat-form-field>
                 <input matInput formControlName="expName" placeholder="Experience Name">
@@ -20,5 +42,5 @@
       <mat-dialog-actions align="end">
         <button mat-raised-button color="accent">Accent</button>
       </mat-dialog-actions>
-      </form>
+      </form> -->
 </mat-dialog-content>

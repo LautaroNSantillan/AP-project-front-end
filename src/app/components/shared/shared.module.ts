@@ -27,9 +27,6 @@ import {MatSortModule} from '@angular/material/sort';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 
-//Gradient Bar
-
-
 
 //My comps
 import { FooterComponent } from '../footer/footer.component';

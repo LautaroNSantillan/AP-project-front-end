@@ -1,12 +1,19 @@
+mat-icon{
+  font-size: 2rem;
+  color: aliceblue;
+  width: auto;
+}
+
 .sidebar {
-    position: fixed;
-    width: 25%;
-    height: 100vh;
-    background: #312450;
-    font-size: 0.65em;
-    transform: translateX(-100%);
-    transition: transform 0.3s cubic-bezier(0.77, 0, 0.175, 1); /* change timing function */
-  }
+  position: fixed;
+  width: 40%;
+  height: 100vh;
+  background: #0B2447;
+  font-size: 0.65em;
+  transform: translateX(-100%);
+  transition: transform 0.3s cubic-bezier(0.77, 0, 0.175, 1); 
+  z-index: 9999!important; 
+}
   
   .sidebar.open {
     transform: translateX(0%);
@@ -18,11 +25,9 @@
   }
   
   .nav {
-    position: relative;
-    margin: 0 15%;
-    text-align: right;
-    top: 50%;
-    transform: translateY(-50%);
+    position: fixed;
+    top: 0;
+    left: 15%;
     font-weight: bold;
   }
   
@@ -42,7 +47,7 @@
     letter-spacing: 0.4em;
     color: rgba(255, 255, 255, 0.35);
     display: block;
-    transition: all ease-out 300ms;
+   
   }
   
   .nav ul li.active a {
@@ -65,7 +70,7 @@
     background: black;
     left: 0;
     bottom: 0;
-    background-image: linear-gradient(to right, #5e42a6, #b74e91);
+    background-image: linear-gradient(to right, #19376D, #A5D7E8);
   }
   
   @keyframes slide-in {

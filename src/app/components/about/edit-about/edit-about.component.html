@@ -1,38 +1,34 @@
-<section class="pt-20" *ngIf="webUser">
-    <form (ngSubmit)="onUpdate()" novalidate #f="ngForm">
-        <div fxLayout="row" fxLayoutAlign="space-between center">
-            <div>
-                <label>
-                    Name
-                    <input type="text" name="name" placeholder="Name" [(ngModel)]="webUser.name" [ngModelOptions]="">
-                </label>
+<button mat-icon-button class="float-right" matDialogClose><mat-icon>close</mat-icon></button>
+<mat-dialog-content class="pt-20" *ngIf="webUser">
+    <form  novalidate #f="ngForm">
+        <div  class="flex flex-col justify-center items-center form__group">
+            <div class="mx-3">
+                <input type="text" class="form__input" name="name" placeholder="Name" [(ngModel)]="webUser.name" id="name" />
+                <label for="name" class="form__label">Name</label>
             </div>
-            <div>
-                <label>
-                    Last Name
-                    <input type="text" name="lastName" placeholder="Last Name" [(ngModel)]="webUser.lastName" [ngModelOptions]="">
-                </label>
+           
+            <div class="mx-3">
+                <input type="text" class="form__input"  placeholder="Last Name" name="lastName" [(ngModel)]="webUser.lastName" id="lastname" />
+                <label for="lastname" class="form__label">Last Name</label>
             </div>
-            <div>
-                <label>
-                    About
-                    <input type="text" name="about" placeholder="About" [(ngModel)]="webUser.about" [ngModelOptions]="">
-                </label>
+
+            <div class="mx-3">
+                <input type="text" class="form__input"  placeholder="About" name="about" [(ngModel)]="webUser.about" id="about" />
+                <label for="about" class="form__label">About</label>
             </div>
-            <div>
-                <label>
-                    Email
-                    <input type="text" name="email" placeholder="Email" [(ngModel)]="webUser.email" [ngModelOptions]="">
-                </label>
+            
+            <div class="mx-3"> 
+                <input type="text" class="form__input"  placeholder="Email" name="email" [(ngModel)]="webUser.email" id="email" />
+                <label for="email" class="form__label">Email</label>
             </div>
-            <div>
-                <label>
-                    Image
-                    <input type="file" name="img" placeholder="Image" [(ngModel)]="webUser.img" (change)="uploadImage($event)" accept=".jpg, .jpeg, .png" [ngModelOptions]="">
+            <div class="mt-5">
+                <label class="drop-container ">
+                    <input type="file" name="img" placeholder="Image" [(ngModel)]="webUser.img" (change)="uploadImage($event)" accept=".jpg, .jpeg, .png" >
                 </label>
-                <img *ngIf="imageService.imgURL" [src]="imageService.imgURL" alt="">
+                <p class="form__label">Profile Image</p> 
+                <img *ngIf="imageService.imgURL" [src]="imageService.imgURL" alt="" class="w-64 mx-auto">
             </div>
         </div>
-        <button mat-raised-button color="accent">Accent</button>
+        <button class="button" matDialogClose (click)="onUpdate()">EDIT</button>
     </form>
-</section>
+</mat-dialog-content>
