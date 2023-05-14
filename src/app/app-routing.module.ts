@@ -5,15 +5,26 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { RegisterComponent } from './components/register/register.component';
 
 const routes: Routes = [
-  {path: '', component: DashboardComponent, pathMatch:'full'},
-  {path:'login', component:LoginComponent},
-  {path:'dashboard', loadChildren:()=> import ('./components/dashboard/dashboard.module').then(x=> x.DashboardModule)},
-  {path:'register', component:RegisterComponent},
-  {path: '**', component: DashboardComponent, pathMatch:'full'},
+  {
+    path: 'login',
+    component: LoginComponent,
+    data: {
+      title: 'Login',
+    },
+  },
+  {
+    path: 'dashboard',
+    loadChildren: () =>
+      import('./components/dashboard/dashboard.module').then(
+        (x) => x.DashboardModule
+      ),
+  },
+  { path: 'register', component: RegisterComponent },
+  { path: '**', redirectTo: '/dashboard' }, // Redirect all invalid routes to '/dashboard'
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes, { useHash: true })],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

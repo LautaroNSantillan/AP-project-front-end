@@ -35,6 +35,121 @@ a {
   text-decoration: none;
 }
 
+.navy-bg{
+  background-color: #394867;
+}
+.greyish-blue-bg{
+  background-color: #21243e;
+}
+.z-999{
+  z-index: 999;
+}
+.inner-box-shadow{
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+}
+
 .mt-10vh{
   margin-top: 10vh!important;
 }
+.swal2-container.swal2-center>.swal2-popup {
+  background-color: #1F255C;
+  color: rgb(216, 223, 240)fff;
+}
+
+.swal2-title {
+  color: rgb(216, 223, 240)!important;
+}
+
+.swal2-content {
+  color: rgb(216, 223, 240);
+}
+.swal2-html-container{
+  color: rgb(216, 223, 240)!important;
+}
+
+.swal2-confirm {
+  background-color: #3085d6;
+  color: #ffffff;
+}
+
+.swal2-cancel {
+  background-color: #aaaaaa;
+  color: #ffffff;
+}
+
+.swal2-icon.swal2-warning{
+  border-color:#9932CC!important;
+  color:#9932CC!important;
+}
+
+.swal2-icon.swal2-success .swal2-success-ring {
+  border-color:#9932CC!important;
+  color:#9932CC!important;
+}
+
+.swal2-icon.swal2-success{
+  border-color:#9932CC!important;
+  color:#9932CC!important;
+}
+.swal2-popup.swal2-toast{
+  background-color: #9932CC!important;
+  color:#9932CC!important;
+}
+
+.rainbow-underline {
+  position: relative;
+  text-decoration: none;
+  color: inherit;
+  z-index: 1;
+}
+
+.i-rainbow-underline::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: .07em;
+  height: .1em;
+  width: 100%;
+  background: linear-gradient(110deg,#ff5959,#29d0be,#6cb8ea,#e1f549, );
+  z-index: -1;
+  transition: height .25s cubic-bezier(.6,0,.4,1);
+}
+.i-rainbow-underline {
+  position: relative;
+  text-decoration: none;
+  color: inherit;
+  z-index: 1;
+}
+
+.rainbow-underline::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: .07em;
+  height: .1em;
+  width: 100%;
+  background: linear-gradient(110deg, #e1f549, #29d0be, #6cb8ea, #ff5959);
+  z-index: -1;
+  transition: height .25s cubic-bezier(.6,0,.4,1);
+}
+
+.dark-underline {
+  position: relative;
+  text-decoration: none;
+  color: inherit;
+  z-index: 1;
+}
+
+.dark-underline::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: .07em;
+  height: .1em;
+  width: 100%;
+  background: linear-gradient(110deg, #849fd3, #021816);
+  z-index: -1;
+  transition: height .25s cubic-bezier(.6,0,.4,1);
+}
+
+

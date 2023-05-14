@@ -12,21 +12,30 @@ import { EditSkillComponent } from '../skills/edit-skill/edit-skill.component';
 import { EditAboutComponent } from '../about/edit-about/edit-about.component';
 import { MockUser } from 'src/app/model/mock-user';
 import { MockUsersComponent } from '../mock-users/mock-users.component';
+import { LoggedInGuard } from 'src/app/guards/logged-in.guard';
+import { AdminGuard } from 'src/app/guards/admin.guard';
+
 
 const routes: Routes = [
   {path: '', component:DashboardComponent, children:[
     {path:'', component:HomeComponent},
     {path:'home', component:HomeComponent},
-    {path:'create-experience', component:CreateExpComponent},
-    {path:'edit-experience/:id', component:EditExpComponent},
-    {path:'edit-education/:id', component:EditEduComponent},
-    {path:'create-education', component:CreateEduComponent},
-    {path:'create-skill', component:CreateSkillComponent},
-    {path:'edit-skill/:id', component:EditSkillComponent},
-    {path:'edit-web-user/:id', component:EditAboutComponent},
-    {path:'profile', component:ProfileComponent},
+    {path:'create-experience', component:CreateExpComponent, canActivate:[AdminGuard]},
+    {path:'edit-experience/:id', component:EditExpComponent, canActivate:[AdminGuard]},
+    {path:'edit-education/:id', component:EditEduComponent, canActivate:[AdminGuard]},
+    {path:'create-education', component:CreateEduComponent, canActivate:[AdminGuard]},
+    {path:'create-skill', component:CreateSkillComponent, canActivate:[AdminGuard]},
+    {path:'edit-skill/:id', component:EditSkillComponent, canActivate:[AdminGuard]},
+    {path:'edit-web-user/:id', component:EditAboutComponent, canActivate:[AdminGuard]},
+    {path:'profile', 
+    component:ProfileComponent, 
+    canActivate:[LoggedInGuard],
+    data: {
+      title: 'Your Profile',
+    }
+  },
     {path:'mock-users', component:MockUsersComponent},
-    {path:'**', component:HomeComponent},
+    { path: '**', redirectTo: '/dashboard' } // Redirect all invalid routes to '/dashboard'
   ]}
 ];
 

@@ -37,6 +37,8 @@ import { EditMockUsersComponent } from './components/mock-users/edit-mock-users/
 import { CreateMockUsersComponent } from './components/mock-users/create-mock-users/create-mock-users.component';
 import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
 
+import { NgCircleProgressModule } from 'ng-circle-progress';
+
 
 
 
@@ -71,6 +73,22 @@ import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
     AppRoutingModule,
     BrowserAnimationsModule,
     SharedModule,
+    NgCircleProgressModule.forRoot({
+      radius: 130,
+      outerStrokeWidth: 18,
+      innerStrokeWidth: 2,
+      outerStrokeGradient: true,
+      outerStrokeColor: "#77c5df",
+      innerStrokeColor: "#000",
+      animation:true,
+      animationDuration: 600,
+      outerStrokeGradientStopColor: "#651f9e",
+      showUnits: false,
+      showImage: true,
+      showBackground: false,
+      imageHeight: 100,
+      imageWidth: 100,
+    }),
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideStorage(() => getStorage())
   ],

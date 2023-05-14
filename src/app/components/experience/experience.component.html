@@ -1,66 +1,37 @@
-<section class="container mx-auto">
-  <h2 class="text-3xl">MY EXPERIENCE</h2>
-<mat-dialog-actions>
-    <!-- <button mat-raised-button color="accent" routerLink="/dashboard/create-experience" *ngIf="isLogged">CREATE EXPERIENCE</button> -->
-    <button mat-raised-button color="accent" (click)="openCreate()" *ngIf="isLogged">CREATE EXPERIENCE</button>
-  </mat-dialog-actions>
+<span class="w-full navy-bg block">
+  <section class="container mx-auto">
+    <h2 class="text-4xl py-3 pt-9 font-extrabold text-center i-rainbow-underline mb-5 text-pinkgray"> <span class="text-rockmet">></span>{{isProfile ? 'YOUR EXPERIENCE' : 'MY EXPERIENCE'}}</h2>
+    <mat-dialog-actions>
+      <button class="neu-button text-pinkgray" (click)="openCreate()" *ngIf="isLogged && isProfile">CREATE
+        EXPERIENCE</button>
+    </mat-dialog-actions>
 
-    <!-- <div class="flex flex-col">
-        <div class="overflow-x-auto sm:mx-0.5 lg:mx-0.5">
-          <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
-            <div class="overflow-hidden">
-              <table class="min-w-full">
-                <thead class="bg-white border-b">
-                  <tr>
-                    <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                      Name
-                    </th>
-                    <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                      Description
-                    </th>
-                    <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left" *ngIf="isLogged">
-                      Edit
-                    </th>
-                    <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left" *ngIf="isLogged">
-                      Delete
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr class="bg-gray-100 border-b" *ngFor="let exp of experience">
-                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                      {{exp.expName}}
-                    </td>
-                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                     {{exp.expDescription}}
-                    </td>
-                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap" routerLink="/dashboard/edit-experience/{{exp.id}}" *ngIf="isLogged">
-                        <button><mat-icon>edit</mat-icon></button>
-                      </td>
-                      <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap" *ngIf="isLogged" (click)="disable(exp.id)">
-                        <button><mat-icon>delete</mat-icon></button>
-                      </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-x-7 gap-y-5 mx-auto">
+      <div class="col-span-1  mx-auto w-4/5 inner-box-shadow bg-indigo-300/25 p-2 rounded-md animated-bg"
+        *ngFor="let exp of experience">
+        <h3 class="underline font-extrabold text-emerald-950 lg:text-3xl sm:text-2xl"> {{exp.expName}} </h3>
+        <span class="flex">
+          <div class="w-3/5 mt-2 font-semibold ">
+            <p class="w-3/5 mt-2 font-semibold lg:text-2xl sm:text-xl text-center relative z-50"> {{exp.expDescription}}
+            </p>
           </div>
-        </div>
-      </div> -->
+          <div class="w-2/5"> <img class="w-full relative w-full z-50"
+              [src]="exp.imgURL ? exp.imgURL : '../../../../assets/images/no-image.jpg'" alt="">
+          </div>
+        </span>
 
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-x-7 my-4 gap-y-5 mx-auto">
-        <div class="col-span-1 bg-white mx-auto w-4/5 inner-box-shadow bg-indigo-300/25 p-2 rounded-md" *ngFor="let exp of experience">
-          <h3 class="underline font-extrabold text-emerald-950 text-2xl"> {{exp.expName}} </h3>
-          <span class="flex">
-            <div class="w-3/5 mt-2 font-semibold "> <p class="text-center"> {{exp.expDescription}} </p> </div>
-          <div class="w-2/5"> <img class="w-full" [src]="exp.imgURL ? exp.imgURL : '../../../../assets/images/no-image.jpg'"
-            alt="" class="w-full"> </div>
-          </span>
-        
-            <button (click)="openEdit(exp.id)" *ngIf="isLogged"><mat-icon>edit</mat-icon></button>
-       
-            <button *ngIf="isLogged" (click)="openDeleteDialog(exp.id, exp.expName)"><mat-icon>delete</mat-icon></button>
-          
+        <div class="flex self-end z-50 w-full">
+        <button (click)="openEdit(exp.id)" *ngIf="isLogged && isProfile" class="flex items-center justify-center z-50 delete-button mx-2" matTooltip="EDIT"><mat-icon class="text-md">edit</mat-icon></button>
+        <button *ngIf="isLogged && isProfile" matTooltip="DELETE"
+          (click)="openDeleteDialog(exp.id, exp.expName)" class="flex items-center justify-center z-50 delete-button">␡</button>
         </div>
+
+        <div class='air air1'></div>
+        <div class='air air2'></div>
+        <div class='air air3'></div>
+        <div class='air air4'></div>
+
       </div>
-</section>
+    </div>
+  </section>
+</span>

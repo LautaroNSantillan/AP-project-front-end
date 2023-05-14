@@ -5,6 +5,8 @@ import { Observable } from 'rxjs';
 import { LoginUser } from '../model/login-user';
 import { environment } from 'src/environments/environment';
 import { TokenService } from './token.service';
+import jwt_decode from 'jwt-decode';
+
 
 @Injectable({
   providedIn: 'root'
@@ -21,12 +23,22 @@ export class AuthService {
   public login(loginUser: LoginUser): Observable<any>{
     return this.httpClient.post(this.authURL + 'login', loginUser);
   }
-  public isLogged(): boolean{
-    if(this.tokenService.getToken()){
-      return true;
+  isLogged(): boolean {
+    const token = this.tokenService.getToken();
+    console.log('token:', token);
+    if (token) {
+      const decodedToken = jwt_decode(token) as { exp: number };
+      console.log('decodedToken.exp:', decodedToken.exp);
+      const currentTime = Math.floor(Date.now() / 1000);
+      console.log('currentTime:', currentTime);
+      if (decodedToken.exp < currentTime) {
+        console.log('token is expired');
+        return false; // Token is expired
+      }
+      console.log('token is valid');
+      return true; // Token is valid
     }
-    else{
-      return false;
-    }
+    console.log('no token found');
+    return false; // No token found
   }
 }

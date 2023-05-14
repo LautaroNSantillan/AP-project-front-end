@@ -8,6 +8,7 @@ import { CreateMockUsersComponent } from './create-mock-users/create-mock-users.
 import { EditMockUsersComponent } from './edit-mock-users/edit-mock-users.component';
 import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
 import { UserService } from 'src/app/services/user.service';
+import { SwalService } from 'src/app/services/swal.service';
 
 
 @Component({
@@ -21,6 +22,7 @@ export class MockUsersComponent implements OnInit{
 
   MOCK_USERS: MockUser[] = [
   ];
+  
   displayedColumns: string[] = ['name', 'lastName', 'birthdate', 'actions'];
   dataSource = new MatTableDataSource(this.MOCK_USERS);
 
@@ -28,17 +30,12 @@ export class MockUsersComponent implements OnInit{
     private mockService: UserService,
     private createDialog: MatDialog,
     private editDialog: MatDialog,
-    private deleteDialog: MatDialog
+    private deleteDialog: MatDialog,
+    private swal: SwalService
     ){}
 
     ngOnInit(): void {
-      this.mockService.allUsers().subscribe({
-        next: res=>{
-          console.log(res);
-          this.MOCK_USERS=res;
-          this.dataSource.data = res;
-        }
-      })
+      this.fetchAllUsers();
     }
 
   applyFilter(event: Event) {
@@ -55,9 +52,9 @@ export class MockUsersComponent implements OnInit{
     if(id!=undefined){
       this.mockService.delete(id).subscribe({
         next: res=>{
-          location.reload();
+          this.swal.successAlert("Success","Mock user deleted." );
         },
-        error: err=> console.log(err)
+        error: err=> this.swal.errorAlert("Error",err.error.msg )
       })
     }
   }
@@ -69,21 +66,44 @@ export class MockUsersComponent implements OnInit{
   }
 
   openEdit(id:number): void{
-    this.editDialog.open(EditMockUsersComponent,{
+    const dialogRef =this.editDialog.open(EditMockUsersComponent,{
       width: '80%',
       data: { id: id }
     });
-  }
-  openDeleteDialog(id: number, name: string) {
-    const dialogRef = this.deleteDialog.open(DeleteDialogComponent, {
-      data: { thingtodelete: name }
+
+    dialogRef.afterClosed().subscribe(() => {
+      this.fetchAllUsers();
     });
+  }
+  // openDeleteDialog(id: number, name: string) {
+  //   const dialogRef = this.deleteDialog.open(DeleteDialogComponent, {
+  //     data: { thingtodelete: name }
+  //   });
 
-    dialogRef.componentInstance.thingtodelete = name;
+  //   dialogRef.componentInstance.thingtodelete = name;
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result === 'confirm') {
-        this.delete(id);
+  //   dialogRef.afterClosed().subscribe(result => {
+  //     if (result === 'confirm') {
+  //       this.delete(id);
+  //     }
+  //   });
+  // }
+
+  openDeleteDialog(id: number, name: string){
+    this.swal.deleteDialog(id, name, () => {
+      this.delete(id);
+    });
+  }
+
+  fetchAllUsers() {
+    this.mockService.allUsers().subscribe({
+      next: res => {
+        console.log(res);
+        this.MOCK_USERS = res;
+        this.dataSource.data = res;
+      },
+      error: err => {
+        console.error(err);
       }
     });
   }

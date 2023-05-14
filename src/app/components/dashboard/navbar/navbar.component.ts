@@ -6,6 +6,7 @@ import { TokenService } from 'src/app/services/token.service';
 import { Storage, getDownloadURL, ref} from '@angular/fire/storage';
 import { HttpClient } from '@angular/common/http';
 import { CvDownloadService } from 'src/app/services/cv-download.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 
 @Component({
@@ -17,15 +18,39 @@ export class NavbarComponent {
   isLogged = false;
   menu: Menu[] = [];
 
-  constructor(private _menuService: MenuService, private router:Router, private tokenService: TokenService, private storage: Storage, private http: HttpClient, private cv: CvDownloadService){}
+  constructor(private _menuService: MenuService, 
+    private router:Router, 
+    private tokenService: TokenService, 
+    private storage: Storage, 
+    private http: HttpClient, 
+    private cv: CvDownloadService,
+    private auth: AuthService){}
 
   ngOnInit() {
+    window.addEventListener('scroll', this.shrinkNav, true);
+
+    this.isLoggedIn();
     this.loadMenu();
-    if(this.tokenService.getToken()){
+  }
+  ngDoCheck() {
+    this.isLoggedIn();
+  }
+  isLoggedIn(){
+    if(this.auth.isLogged()){
       this.isLogged = true;
     }
     else{
       this.isLogged = false;
+    }
+  }
+
+  shrinkNav = (): void => {
+    const navbar = document.getElementById('navbar');
+  
+    if (window.pageYOffset > 0) {
+      navbar.classList.add('shrink');
+    } else {
+      navbar.classList.remove('shrink');
     }
   }
 
@@ -60,7 +85,6 @@ export class NavbarComponent {
     });
     
   }
-
 
   loadMenu(){
     this._menuService.getMenu().subscribe(data => {

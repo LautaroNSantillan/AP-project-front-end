@@ -1,6 +1,6 @@
 <button mat-icon-button class="float-right" matDialogClose><mat-icon>close</mat-icon></button>
 <mat-dialog-content>
-    <form (ngSubmit)="onEdit()" novalidate [formGroup]="form">
+    <form  novalidate [formGroup]="form">
         <div fxLayout="row" fxLayoutAlign="space-between center">
             <mat-form-field>
                 <input matInput formControlName="name" placeholder="Mock Name">
@@ -17,6 +17,6 @@
             <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker format="dd/MM/yyyy"></mat-datepicker>
           </mat-form-field>
-        <button mat-raised-button color="accent">Accent</button>
+        <button mat-raised-button color="accent" matDialogClose (click)="onEdit()">Modify</button>
       </form>
 </mat-dialog-content>

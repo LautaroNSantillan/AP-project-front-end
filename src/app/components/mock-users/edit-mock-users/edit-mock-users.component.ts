@@ -1,9 +1,10 @@
 import { DatePipe } from '@angular/common';
-import { Component, Inject } from '@angular/core';
+import { Component, EventEmitter, Inject, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MockUser } from 'src/app/model/mock-user';
+import { SwalService } from 'src/app/services/swal.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -18,11 +19,14 @@ export class EditMockUsersComponent {
   form: FormGroup;
   myDate: Date = new Date();
 
+  @Output() editMock = new EventEmitter<void>();
+
   constructor(
     @Inject(MAT_DIALOG_DATA) public data:{ id: number },
     private fb: FormBuilder,
     private mockUserService: UserService,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private swal: SwalService
   ) {
     console.log(this.datePipe.transform(this.myDate, 'dd MMM yyyy'));
 
@@ -44,12 +48,17 @@ export class EditMockUsersComponent {
     this.mockUserService.editUser(mockuser).subscribe({
       next: (data) => {
         console.log(data);
-        alert('correcto');
-        location.reload();
+        let msg:string;
+        if(data.msg == 'Modified.'){
+          msg="Nothing modified";
+        }else{
+          msg=data.msg;
+        }
+        this.swal.successAlert("Success!", msg);
+        this.editMock.emit();
       },
       error: (err) => {
-        console.log(err);
-        alert(err.error.msg);
+        this.swal.errorAlert("Error!", err.error.msg);
       },
     });
   }

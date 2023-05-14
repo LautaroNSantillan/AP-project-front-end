@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { MockUser } from 'src/app/model/mock-user';
+import { SwalService } from 'src/app/services/swal.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -17,7 +18,10 @@ export class CreateMockUsersComponent {
   form:FormGroup;
   myDate: Date = new Date();
 
-  constructor(private fb: FormBuilder, private mockUserService: UserService, private datePipe: DatePipe){
+  constructor(private fb: FormBuilder, 
+    private mockUserService: UserService, 
+    private datePipe: DatePipe,
+    private swal: SwalService){
     console.log(this.datePipe.transform(this.myDate, 'dd MMM yyyy'));
 
     this.form = fb.group({
@@ -37,8 +41,7 @@ export class CreateMockUsersComponent {
       alert("correcto");
       location.reload();
     },err=>{
-      console.log(err);
-      alert(err.error.msg);
+      this.swal.errorAlert("ERROR!",err.error.msg );
     })
   }
   onDateSelected(): void {

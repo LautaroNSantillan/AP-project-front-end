@@ -8,6 +8,8 @@ import { WebUserService } from 'src/app/services/web-user.service';
 import { CreateSkillComponent } from './create-skill/create-skill.component';
 import { EditSkillComponent } from './edit-skill/edit-skill.component';
 import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
+import { SwalService } from 'src/app/services/swal.service';
+import { CircleProgressComponent } from 'ng-circle-progress';
 
 @Component({
   selector: 'app-skills',
@@ -17,6 +19,7 @@ import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component'
 export class SkillsComponent {
   skills: Skill[] = [];
   isLogged: boolean = false;
+  isProfile: boolean;
 
   constructor(private skillService: SkillService, 
     private tokenService: TokenService, 
@@ -24,9 +27,11 @@ export class SkillsComponent {
     private router: Router,
     private createDialog: MatDialog,
     private editDialog: MatDialog,
-    private deleteDialog: MatDialog){}
+    private deleteDialog: MatDialog,
+    private swal: SwalService){}
 
   ngOnInit(): void {
+    this.setIsProfile();
     const currentRoute = this.router.url;
 
     if(currentRoute=="/dashboard/profile"){
@@ -76,18 +81,29 @@ export class SkillsComponent {
       data: { skillId: id }
     });
   }
-  openDeleteDialog(id: number, name: string) {
-    const dialogRef = this.deleteDialog.open(DeleteDialogComponent, {
-      data: { thingtodelete: name }
-    });
+  // openDeleteDialog(id: number, name: string) {
+  //   const dialogRef = this.deleteDialog.open(DeleteDialogComponent, {
+  //     data: { thingtodelete: name }
+  //   });
 
-    dialogRef.componentInstance.thingtodelete = name;
+  //   dialogRef.componentInstance.thingtodelete = name;
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result === 'confirm') {
-        this.disable(id);
-      }
+  //   dialogRef.afterClosed().subscribe(result => {
+  //     if (result === 'confirm') {
+  //       this.disable(id);
+  //     }
+  //   });
+  // }
+
+  openDeleteDialog(id: number, name: string){
+    this.swal.deleteDialog(id, name, () => {
+      this.disable(id);
     });
+  }
+  setIsProfile():void{
+    const currentRoute = this.router.url;
+    if(currentRoute=="/dashboard/profile") this.isProfile=true;
+    else this.isProfile=false;
   }
 
 }

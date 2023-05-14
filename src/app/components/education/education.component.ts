@@ -10,87 +10,106 @@ import { WebUserService } from 'src/app/services/web-user.service';
 import { CreateEduComponent } from './create-edu/create-edu.component';
 import { EditEduComponent } from './edit-edu/edit-edu.component';
 import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
+import { SwalService } from 'src/app/services/swal.service';
 
 @Component({
   selector: 'app-education',
   templateUrl: './education.component.html',
-  styleUrls: ['./education.component.scss']
+  styleUrls: ['./education.component.scss'],
 })
 export class EducationComponent implements OnInit {
-  education: Education[]=[];
-  isLogged=false;
+  education: Education[] = [];
+  isLogged = false;
   webUser: WebUser = null;
+  isProfile: boolean;
 
-  constructor(private educationServ: EducationService, 
-    private tokenServ: TokenService, 
-    private auth: AuthService, 
-    private webUserService: WebUserService, 
+  constructor(
+    private educationServ: EducationService,
+    private tokenServ: TokenService,
+    private auth: AuthService,
+    private webUserService: WebUserService,
     private router: Router,
     private createDialog: MatDialog,
     private editDialog: MatDialog,
-    private deleteDialog: MatDialog){}
+    private deleteDialog: MatDialog,
+    private swal: SwalService
+  ) {}
 
   ngOnInit(): void {
     this.loadEducation();
-    this.isLogged=this.auth.isLogged();
+    this.setIsProfile();
+    this.isLogged = this.auth.isLogged();
   }
 
-  loadEducation(): void{
+  loadEducation(): void {
     const currentRoute = this.router.url;
 
-    if(currentRoute=="/dashboard/profile"){
-        this.webUserService.getCurrentUserId().subscribe(userId => {
-      this.educationServ.getActiveEduById(userId).subscribe(res => {
-        console.log(res);
-        this.education = res;
+    if (currentRoute == '/dashboard/profile') {
+      this.webUserService.getCurrentUserId().subscribe((userId) => {
+        this.educationServ.getActiveEduById(userId).subscribe((res) => {
+          console.log(res);
+          this.education = res;
+        });
       });
-    });
-    }else{
+    } else {
       this.webUserService.getMe().subscribe({
         next: (data) => {
           console.log(data);
-          this.education=data.education;
+          this.education = data.education;
+        },
+      });
+    }
+  }
+
+  setIsProfile(): void {
+    const currentRoute = this.router.url;
+    if (currentRoute == '/dashboard/profile') this.isProfile = true;
+    else this.isProfile = false;
+  }
+
+  disable(id: number): void {
+    if (id != undefined) {
+      this.educationServ.disableEdu(id).subscribe(
+        (res) => {
+          console.log(res);
+          this.loadEducation();
+        },
+        (err) => {
+          alert(err.error.msg);
         }
-      })
-    }
-  
-  }
-
-  disable(id: number): void{
-    if(id!=undefined){
-      this.educationServ.disableEdu(id).subscribe(res=>{
-        console.log(res);
-        this.loadEducation();
-      },err=>{
-        alert(err.error.msg);
-      })
+      );
     }
   }
 
-  openCreate(){
-    this.createDialog.open(CreateEduComponent,{
-      width:'80%',
-    });
-  }
-
-  openEdit(id:number): void{
-    this.editDialog.open(EditEduComponent,{
+  openCreate() {
+    this.createDialog.open(CreateEduComponent, {
       width: '80%',
-      data: { eduId: id }
     });
   }
+
+ openEdit(id:number): void{
+   this.editDialog.open(EditEduComponent,{
+     width: '80%',
+    data: { eduId: id }
+   });
+ }
+  // openDeleteDialog(id: number, name: string) {
+  //   const dialogRef = this.deleteDialog.open(DeleteDialogComponent, {
+  //     data: { thingtodelete: name }
+  //   });
+
+  //   dialogRef.componentInstance.thingtodelete = name;
+
+  //   dialogRef.afterClosed().subscribe(result => {
+  //     if (result === 'confirm') {
+  //       this.disable(id);
+  //     }
+  //   });
+  // }
+
   openDeleteDialog(id: number, name: string) {
-    const dialogRef = this.deleteDialog.open(DeleteDialogComponent, {
-      data: { thingtodelete: name }
-    });
-
-    dialogRef.componentInstance.thingtodelete = name;
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result === 'confirm') {
-        this.disable(id);
-      }
+    this.swal.deleteDialog(id, name, () => {
+      this.disable(id);
     });
   }
-
 }

@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http'; 
+import { RouterModule, Routes } from '@angular/router';
 
 
 
@@ -26,16 +27,18 @@ import {MatSortModule} from '@angular/material/sort';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 
-
+//Gradient Bar
 
 
 
 //My comps
 import { FooterComponent } from '../footer/footer.component';
+import { NavbarComponent } from '../dashboard/navbar/navbar.component';
+import { SidenavComponent } from '../dashboard/sidenav/sidenav.component';
 
 
 @NgModule({
-  declarations: [FooterComponent],
+  declarations: [FooterComponent,NavbarComponent,SidenavComponent],
   imports: [
     CommonModule, 
     MatButtonModule,
@@ -59,6 +62,7 @@ import { FooterComponent } from '../footer/footer.component';
     MatSortModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    RouterModule,
   ],
   exports: [
     MatToolbarModule,
@@ -82,7 +86,9 @@ import { FooterComponent } from '../footer/footer.component';
     MatPaginatorModule,
     MatSortModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    NavbarComponent,
+    SidenavComponent,
   ]
 })
 export class SharedModule { }

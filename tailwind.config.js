@@ -11,7 +11,11 @@ module.exports = {
         darknavy: '#0F044C',
         lighternavy: '#141E61',
         customgrey: '#787A91',
-        dirtywhite: '#EEEEEE'
+        dirtywhite: '#EEEEEE',
+        rockmet:'#8A7F8D',
+        pinkgray:'#E7DADA',
+        purplegray:'#A7A6BA',
+        rhythm:'#777696',
       }
 
     },

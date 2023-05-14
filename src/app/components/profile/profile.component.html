@@ -1,19 +1,25 @@
-<section class=" container min-h-screen mx-auto">
-    <div class="flex">
-        <div class="rounded-full overflow-hidden w-64 border-gradient ">
-            <img class="rounded-full w-full overflow-hidden"
-            [src]="webUser.img ? webUser.img : '../../../../assets/images/no-image.jpg'" alt="">
+<section class="min-h-screen mx-auto mt-28">
+    <div class="container mx-auto">
+        <div class="flex flex-col lg:flex-row  items-center justify-center">
+            <div class="rounded-full overflow-hidden w-64 border-gradient mb-5">
+                <img class="rounded-full w-full overflow-hidden"
+                    [src]="webUser.img ? webUser.img : '../../../../assets/images/no-image.jpg'" alt="">
+            </div>
+            <div class="flex flex-col">
+           <h3 class="text-4xl pt-2 font-extrabold text-center i-rainbow-underline h-fit w-fit text-pinkgray ml-11 "> {{webUser.name}} {{webUser.lastName}} </h3>
+
+            <button class="stripes-btn ml-9 mt-1 mb-8" routerLink='edit-web-user/{{webUser.id}}' > EDIT PROFILE </button>
         </div>
-        <h3 class="text-2xl text-center my-auto text-bold ml-10"> {{webUser.name}} + {{webUser.lastName}} </h3>
-    </div>
-    <div class="bg-white bg-opacity-50 rounded-md p-4">
-        <h4 class="text-2xl">ABOUT</h4>
-        <p *ngIf="webUser.about; else noAbout" class="italic"> {{webUser.about}} </p>
-        <ng-template #noAbout>
-            <p class="italic"> No description provided </p>
-        </ng-template>
+        </div>
+        <div class="bg-white bg-opacity-50 rounded-md p-4 mb-6">
+            <h4 class="text-2xl font-semibold">ABOUT</h4>
+            <p *ngIf="webUser.about; else noAbout" class="italic"> {{webUser.about}} </p>
+            <ng-template #noAbout>
+                <p class="italic"> No description provided </p>
+            </ng-template>
+        </div>
     </div>
     <app-skills></app-skills>
-    <app-education></app-education>
     <app-experience></app-experience>
+    <app-education></app-education>
 </section>
