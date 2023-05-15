@@ -69,35 +69,6 @@ export class EditEduComponent implements OnInit {
     });
   }
 
-  // updateEdu(): void {
-  //   this.eduName = this.editEduForm.value.eduName;
-  //   this.eduDescription = this.editEduForm.value.eduDescription;
-
-  //   const id = this.activatedRoute.snapshot.params['id'];
-  //   const name = "edupic#" + id;
-
-  //   this.imageService.uploadImage($event, name)
-  //     .then(downloadURL => {
-  //       const editedEdu = new Education(this.eduName, this.eduDescription, downloadURL);
-
-  //       this.educationServ.updateEdu(id, editedEdu).subscribe({
-  //         next: (data) => {
-  //           console.log(data);
-  //           alert("Success");
-  //           this.router.navigate(['dashboard']);
-  //         },
-  //         error: (err) => {
-  //           console.log(err);
-  //           alert(err.error.msg);
-  //         }
-  //       });
-  //     })
-  //     .catch(err => {
-  //       console.error(err);
-  //       alert("Error uploading image");
-  //     });
-  // }
-
   uploadImage($event: any) {
     const id = this.data.eduId;
     const name = 'edupic#' + id;
@@ -106,7 +77,6 @@ export class EditEduComponent implements OnInit {
       .then((url) => {
         this.imgURL = url;
         this.newimgURL = url;
-        console.log(this.imgURL);
       })
       .catch((err) => {
         console.error(err);

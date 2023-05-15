@@ -26,8 +26,8 @@ export class LoginComponent {
   username!: string;
   password!: string;
 
-  validEmail:boolean;
-  validForm:boolean = false;
+  validEmail: boolean;
+  validForm: boolean = false;
 
   usernameReg: string;
   passwordReg: string;
@@ -73,7 +73,9 @@ export class LoginComponent {
         this.tokenService.setUsername(data.username);
         this.tokenService.setAuthorities(data.authorities);
         this.roles = data.authorities;
-        this.router.navigate(['/dashboard/home']);
+        this.router
+          .navigate(['/dashboard/home'])
+          .then((res) => this.swal.successAlert('Success!', 'Logged In!'));
       },
       error: (err) => {
         this.form.reset();
@@ -86,28 +88,32 @@ export class LoginComponent {
   }
 
   hidebtn() {
-    let btn=document.getElementById('mainButton');
+    let btn = document.getElementById('mainButton');
     btn.classList.add('hidden');
   }
   showbtn() {
-    let btn=document.getElementById('mainButton');
+    let btn = document.getElementById('mainButton');
     btn.classList.remove('hidden');
   }
 
-  onRegister(){
-    let newUser = new Registerdto(this.nameReg, this.lastNameReg, this.usernameReg, this.emailReg, this.passwordReg);
+  onRegister() {
+    let newUser = new Registerdto(
+      this.nameReg,
+      this.lastNameReg,
+      this.usernameReg,
+      this.emailReg,
+      this.passwordReg
+    );
     this.webUserService.registerWebUser(newUser).subscribe({
-      next:res=>{
+      next: (res) => {
         this.closeForm();
-        this.swal.successAlert("Success!", res.msg);
+        this.swal.successAlert('Success!', res.msg);
       },
-      error: err=>{
+      error: (err) => {
         console.log(err);
-        this.swal.errorAlert("Error!", err.error.msg);
-      }
-    })
-
-    
+        this.swal.errorAlert('Error!', err.error.msg);
+      },
+    });
   }
 
   triggerLoginError() {
@@ -149,36 +155,41 @@ export class LoginComponent {
   }
 
   isRegistrationFormEmpty(): boolean {
-    return !this.nameReg || !this.lastNameReg || !this.emailReg || !this.usernameReg || !this.passwordReg;
+    return (
+      !this.nameReg ||
+      !this.lastNameReg ||
+      !this.emailReg ||
+      !this.usernameReg ||
+      !this.passwordReg
+    );
   }
   isLoginFormEmpty(): boolean {
-    return !this.username || !this.password ;
+    return !this.username || !this.password;
   }
 
   checkInput(input: any) {
-  if (input.value.length > 0) {
-    input.className = 'active';
-  } else {
-    input.className = '';
-    console.log(input.value);
+    if (input.value.length > 0) {
+      input.className = 'active';
+    } else {
+      input.className = '';
+      console.log(input.value);
+    }
   }
-}
 
-checkBoth(input: any) {
-  this.checkInput(input);
-  this.checkEmail();
-}
-
-checkEmail() {
-  const emailRegex = /\S+@\S+\.\S+/;
-  if(emailRegex.test(this.emailReg)){
-    this.validEmail = true;
-  }else{
-    this.validEmail = false;
+  checkBoth(input: any) {
+    this.checkInput(input);
+    this.checkEmail();
   }
-  console.log(this.validEmail);
-}
 
+  checkEmail() {
+    const emailRegex = /\S+@\S+\.\S+/;
+    if (emailRegex.test(this.emailReg)) {
+      this.validEmail = true;
+    } else {
+      this.validEmail = false;
+    }
+    console.log(this.validEmail);
+  }
 
   closeForm() {
     let button = document.getElementById('mainButton');
@@ -192,22 +203,21 @@ checkEmail() {
     });
   }
 
-
-  openFormReg(){
+  openFormReg() {
     let button = document.getElementById('regButton');
     button.className = 'active';
   }
 
-closeFormReg(){
-  let button = document.getElementById('regButton');
-  button.className = '';
-}
-listenCloseReg(){
-  this.renderer.listen('document', 'keyup', (e: KeyboardEvent) => {
-    if (e.key === "Escape") {
-      this.closeFormReg();
-    }
-  });
-  this.showbtn();
-}
+  closeFormReg() {
+    let button = document.getElementById('regButton');
+    button.className = '';
+  }
+  listenCloseReg() {
+    this.renderer.listen('document', 'keyup', (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        this.closeFormReg();
+      }
+    });
+    this.showbtn();
+  }
 }

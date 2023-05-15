@@ -9,6 +9,7 @@ import { CreateExpComponent } from './create-exp.component';
 import { EditExpComponent } from './edit-exp/edit-exp.component';
 import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
 import { SwalService } from 'src/app/services/swal.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-experience',
@@ -28,11 +29,14 @@ export class ExperienceComponent implements OnInit {
     private createDialog: MatDialog,
     private editDialog: MatDialog,
     private deleteDialog: MatDialog,
-    private swal: SwalService
+    private swal: SwalService,
+    private auth: AuthService
   ) {}
 
   ngOnInit() {
     this.setIsProfile();
+    this.setIsLoggedIn();
+
     const currentRoute = this.router.url;
     if (currentRoute == '/dashboard/profile') {
       this.loadExperience();
@@ -43,14 +47,10 @@ export class ExperienceComponent implements OnInit {
         },
       });
     }
-
-    if (this.tokenService.getToken()) {
-      this.isLogged = true;
-    } else {
-      this.isLogged = false;
-    }
   }
-
+  setIsLoggedIn(){
+    this.isLogged=this.auth.isLogged();
+  }
   setIsProfile(): void {
     const currentRoute = this.router.url;
     if (currentRoute == '/dashboard/profile') this.isProfile = true;
@@ -59,21 +59,18 @@ export class ExperienceComponent implements OnInit {
 
   loadExperience(): void {
     this.webUserService.getCurrentUserId().subscribe((userId) => {
-      console.log(userId);
       this.expService.getExpByIdList(userId).subscribe((res) => {
-        console.log(res);
         this.experience = res;
       });
     });
   }
-  disable(id?: number) {
+  disable(id?: number) {//obsolete
     if (id != undefined) {
       this.expService.disable(id).subscribe(
         (data) => {
           this.loadExperience();
         },
         (err) => {
-          console.log(err);
           alert(err.error.msg);
         }
       );
@@ -95,20 +92,7 @@ export class ExperienceComponent implements OnInit {
     this.loadExperience();
   });
    }
-  // openDeleteDialog(id: number, name: string) {
-  //   const dialogRef = this.deleteDialog.open(DeleteDialogComponent, {
-  //     data: { thingtodelete: name }
-  //   });
-
-  //   dialogRef.componentInstance.thingtodelete = name;
-
-  //   dialogRef.afterClosed().subscribe(result => {
-  //     if (result === 'confirm') {
-  //       this.disable(id);
-  //     }
-  //   });
-  // }
-
+   
   openDeleteDialog(id: number, name: string) {
     this.swal.deleteDialog(id, name, () => {
       this.disable(id);

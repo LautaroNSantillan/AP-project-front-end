@@ -47,14 +47,12 @@ export class EducationComponent implements OnInit {
     if (currentRoute == '/dashboard/profile') {
       this.webUserService.getCurrentUserId().subscribe((userId) => {
         this.educationServ.getActiveEduById(userId).subscribe((res) => {
-          console.log(res);
           this.education = res;
         });
       });
     } else {
       this.webUserService.getMe().subscribe({
         next: (data) => {
-          console.log(data);
           this.education = data.education;
         },
       });
@@ -68,50 +66,38 @@ export class EducationComponent implements OnInit {
   }
 
   disable(id: number): void {
+    //obsolete
     if (id != undefined) {
       this.educationServ.disableEdu(id).subscribe(
         (res) => {
-          console.log(res);
+          this.swal.successAlert('Success!', res.msg);
           this.loadEducation();
         },
         (err) => {
-          alert(err.error.msg);
+          this.swal.errorAlert('Error!', err.error.msg);
         }
       );
     }
   }
 
   openCreate() {
-   const dialog=  this.createDialog.open(CreateEduComponent, {
+    const dialog = this.createDialog.open(CreateEduComponent, {
       width: '60%',
     });
-    dialog.afterClosed().subscribe(result => {
+    dialog.afterClosed().subscribe((result) => {
       this.loadEducation();
     });
   }
 
- openEdit(id:number): void{
-   const dialog = this.editDialog.open(EditEduComponent,{
-     width: '60%',
-    data: { eduId: id }
-   });
-   dialog.afterClosed().subscribe(result => {
-    this.loadEducation();
-  });
- }
-  // openDeleteDialog(id: number, name: string) {
-  //   const dialogRef = this.deleteDialog.open(DeleteDialogComponent, {
-  //     data: { thingtodelete: name }
-  //   });
-
-  //   dialogRef.componentInstance.thingtodelete = name;
-
-  //   dialogRef.afterClosed().subscribe(result => {
-  //     if (result === 'confirm') {
-  //       this.disable(id);
-  //     }
-  //   });
-  // }
+  openEdit(id: number): void {
+    const dialog = this.editDialog.open(EditEduComponent, {
+      width: '60%',
+      data: { eduId: id },
+    });
+    dialog.afterClosed().subscribe((result) => {
+      this.loadEducation();
+    });
+  }
 
   openDeleteDialog(id: number, name: string) {
     this.swal.deleteDialog(id, name, () => {

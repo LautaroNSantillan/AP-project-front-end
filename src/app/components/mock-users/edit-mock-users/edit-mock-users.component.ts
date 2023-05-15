@@ -47,7 +47,6 @@ export class EditMockUsersComponent {
 
     this.mockUserService.editUser(mockuser).subscribe({
       next: (data) => {
-        console.log(data);
         let msg:string;
         if(data.msg == 'Modified.'){
           msg="Nothing modified";

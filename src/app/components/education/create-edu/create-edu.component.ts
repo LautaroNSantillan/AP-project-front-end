@@ -11,9 +11,9 @@ import { WebUserService } from 'src/app/services/web-user.service';
 @Component({
   selector: 'app-create-edu',
   templateUrl: './create-edu.component.html',
-  styleUrls: ['./create-edu.component.scss']
+  styleUrls: ['./create-edu.component.scss'],
 })
-export class CreateEduComponent implements OnInit{
+export class CreateEduComponent implements OnInit {
   webUser: WebUser;
   newEduForm: FormGroup;
   eduName: string;
@@ -22,43 +22,50 @@ export class CreateEduComponent implements OnInit{
 
   ngOnInit(): void {
     this.webUserService.getCurrentUser().subscribe({
-      next:data=>{
-        this.webUser=data;
+      next: (data) => {
+        this.webUser = data;
         console.log(this.webUser);
-      }
-    })
+      },
+    });
   }
 
-  constructor(private fb : FormBuilder, 
-    private router: Router, 
-    private educationServ: EducationService, 
-    public imageService: UploadImageService, 
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private educationServ: EducationService,
+    public imageService: UploadImageService,
     private webUserService: WebUserService,
-    private swal: SwalService){
+    private swal: SwalService
+  ) {
     this.newEduForm = fb.group({
       eduName: ['', Validators.required],
       eduDescription: ['', Validators.required],
       imgURL: ['', Validators.required],
-    })
+    });
   }
 
-  onCreate(): void{
-    this.imgURL=this.imageService.imgURL;
-    console.log(this.eduName, this.eduDescription);
+  onCreate(): void {
+    this.imgURL = this.imageService.imgURL;
 
-    const education = new Education(this.eduName, this.eduDescription, this.imgURL);
 
-    this.educationServ.saveEdu(education).subscribe(data => {
-      this.swal.successAlert("Created!", data.msg);
-    },err=>{
-      this.swal.successAlert("Error!", err.error.msg);
-    })
+    const education = new Education(
+      this.eduName,
+      this.eduDescription,
+      this.imgURL
+    );
+
+    this.educationServ.saveEdu(education).subscribe(
+      (data) => {
+        this.swal.successAlert('Created!', data.msg);
+      },
+      (err) => {
+        this.swal.successAlert('Error!', err.error.msg);
+      }
+    );
   }
 
-
-  uploadImage($event: any){
-    const name = "user" + this.webUser.name+ "edupic"+ this.eduName;
+  uploadImage($event: any) {
+    const name = 'user' + this.webUser.name + 'edupic' + this.eduName;
     this.imageService.uploadImage($event, name);
   }
-
 }
