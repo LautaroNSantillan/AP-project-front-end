@@ -1,7 +1,7 @@
 <span class="w-full navy-bg block">
     <section class="container mx-auto">
         <h2 class="text-4xl py-3 pt-9 font-extrabold text-center rainbow-underline mb-5 text-pinkgray"> <span class="text-rockmet">></span>{{isProfile ? 'YOUR SKILLS' : 'MY SKILLS'}}</h2>
-        <button class="neu-button text-pinkgray" (click)="openCreate()" *ngIf="isLogged">CREATE SKILL</button>
+        <button class="neu-button text-pinkgray" (click)="openCreate()" *ngIf="isLogged && isProfile">CREATE SKILL</button>
 
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-x-7 gap-y-5 mx-auto" *ngIf="skills.length > 0; else noSkills">
             <div *ngFor="let skill of skills" 
