@@ -33,82 +33,85 @@
     </form> -->
 <!-- </div> -->
 <div class="h-screen flex flex-col justify-center ">
-    <h1 class="text-5xl py-3 pt-9 font-extrabold text-center i-rainbow-underline mb-5 mt-10 text-pinkgray font-abril italic w-fit mx-auto">CHOOSE</h1>
-<section class="w-3/5 h-3/5 mx-auto flex justify-around items-center  mt-5 bg-indigo-300/25  rounded-md">
-    <!-- LOGIN -->
-    <div id="mainButton" >
-        <div class="btn-text font-bold" (click)="openForm()">Sign In</div>
-        <div class="modal ">
-            <div class="close-button" (click)="closeForm()">x</div>
-            <div class="form-title font-bold">Sign In</div>
-            <div class="input-group">
-                <input type="text" id="name" [(ngModel)]="username" (blur)="checkInput($event.target)" />
-                <label for="name" class="font-semibold">Username</label>
-            </div>
-            <div class="input-group">
-                <input type="password" id="password" [(ngModel)]="password" (blur)="checkInput($event.target)" />
-                <label for="password" class="font-semibold">Password</label>
-            </div>
-            <div *ngIf="isLoginFormEmpty(); else validForm">
-                <button mat-raised-button disabled color="primary">*Please fill out all required fields.</button>
-            </div>
-            <ng-template #validForm>
-                <div class="button-block flex justify-center items-center mx-auto my-3" matTooltip="Login">
-                    <button class="social"><a  (click)="onLogin()"><i
-                                class="fa-sharp fa-solid fa-right-to-bracket "></i></a>
-                    </button>
+    <h1
+        class="text-5xl py-3 pt-9 font-extrabold text-center i-rainbow-underline mb-5 mt-10 text-pinkgray font-abril italic w-fit mx-auto">
+        CHOOSE</h1>
+    <section class="w-3/5 h-3/5 mx-auto flex justify-around items-center  mt-5 bg-indigo-300/25  rounded-md">
+        <!-- LOGIN -->
+        <div id="mainButton">
+            <div class="btn-text font-bold" (click)="openForm()">Sign In</div>
+            <div class="modal ">
+                <div class="close-button" (click)="closeForm()">x</div>
+                <div class="form-title font-bold">Sign In</div>
+                <div class="input-group">
+                    <input type="text" id="name" [(ngModel)]="username" (blur)="checkInput($event.target)" />
+                    <label for="name" class="font-semibold">Username</label>
                 </div>
-            </ng-template>
-
-        </div>
-    </div>
-
-    <!-- REGISTER -->
-    <div id="regButton">
-        <div class="btn-text font-bold " (click)="openFormReg(); hidebtn()">Sign Up</div>
-        <div class="modal z-9999">
-            <div class="close-button" (click)="closeFormReg(); showbtn()">x</div>
-            <div class="form-title font-bold">Sign Up</div>
-            <div class="input-group">
-                <input type="text" id="nameReg" [(ngModel)]="nameReg" (change)="checkInput($event.target)" />
-                <label for="nameReg" class="font-semibold">Name</label>
-            </div>
-            <div class="input-group">
-                <input type="text" id="lastNameReg" [(ngModel)]="lastNameReg" (change)="checkInput($event.target)" />
-                <label for="lastNameReg" class="font-semibold">Last Name</label>
-            </div>
-            <div class="input-group">
-                <input type="text" id="emailReg" [(ngModel)]="emailReg" (change)="checkBoth($event.target)" />
-                <label for="emailReg" class="font-semibold">Email</label>
-            </div>
-
-            <p class="text-xs text-left " *ngIf="!validEmail"> Enter a valid email
-            <p>
-
-            <div class="input-group">
-                <input type="text" id="usernameReg" [(ngModel)]="usernameReg" (change)="checkInput($event.target)" />
-                <label for="usernameReg" class="font-semibold">Username</label>
-            </div>
-            <div class="input-group">
-                <input type="password" id="passwordReg" [(ngModel)]="passwordReg"
-                    (change)="checkInput($event.target)" />
-                <label for="passwordReg" class="font-semibold">Password</label>
-            </div>
-            <div *ngIf="isRegistrationFormEmpty(); else validForm">
-                <button mat-raised-button disabled color="primary">*Please fill out all required fields.</button>
-            </div>
-            <ng-template #validForm>
-                <div class="button-block flex justify-center items-center mx-auto my-3" matTooltip="Login">
-                    <button class="social"><a href="#" (click)="onRegister()"><i
-                                class="fa-sharp fa-solid fa-right-to-bracket "></i></a>
-                    </button>
+                <div class="input-group">
+                    <input type="password" id="password" [(ngModel)]="password" (blur)="checkInput($event.target)" />
+                    <label for="password" class="font-semibold">Password</label>
                 </div>
-            </ng-template>
+                <div *ngIf="isLoginFormEmpty(); else validFormLogin">
+                    <button mat-raised-button disabled color="primary">*Please fill out all required fields.</button>
+                </div>
+                <ng-template #validFormLogin>
+                    <div class="button-block flex justify-center items-center mx-auto my-3" matTooltip="Login">
+                        <button class="social"><a (click)="onLogin()"><i
+                                    class="fa-sharp fa-solid fa-right-to-bracket "></i></a>
+                        </button>
+                    </div>
+                </ng-template>
 
-
+            </div>
         </div>
-    </div>
-</section>
+
+        <!-- REGISTER -->
+        <div id="regButton">
+            <div class="btn-text font-bold " (click)="openFormReg(); hidebtn()">Sign Up</div>
+            <div class="modal z-9999">
+                <div class="close-button" (click)="closeFormReg(); showbtn()">x</div>
+                <div class="form-title font-bold">Sign Up</div>
+                <div class="input-group">
+                    <input type="text" id="nameReg" [(ngModel)]="nameReg" (change)="checkInput($event.target)" />
+                    <label for="nameReg" class="font-semibold">Name</label>
+                </div>
+                <div class="input-group">
+                    <input type="text" id="lastNameReg" [(ngModel)]="lastNameReg"
+                        (change)="checkInput($event.target)" />
+                    <label for="lastNameReg" class="font-semibold">Last Name</label>
+                </div>
+                <div class="input-group">
+                    <input type="text" id="emailReg" [(ngModel)]="emailReg" (change)="checkBoth($event.target)" />
+                    <label for="emailReg" class="font-semibold">Email</label>
+                </div>
+
+                <p class="text-xs text-left " *ngIf="!validEmail"> Enter a valid email
+                <p>
+
+                <div class="input-group">
+                    <input type="text" id="usernameReg" [(ngModel)]="usernameReg"
+                        (change)="checkInput($event.target)" />
+                    <label for="usernameReg" class="font-semibold">Username</label>
+                </div>
+                <div class="input-group">
+                    <input type="password" id="passwordReg" [(ngModel)]="passwordReg"
+                        (change)="checkInput($event.target)" />
+                    <label for="passwordReg" class="font-semibold">Password</label>
+                </div>
+                <div *ngIf="isRegistrationFormEmpty(); else validForm">
+                    <button mat-raised-button disabled color="primary">*Please fill out all required fields.</button>
+                </div>
+                <ng-template #validForm>
+                    <div class="button-block flex justify-center items-center mx-auto my-3" matTooltip="Sign Up">
+                        <button class="social" (click)="onRegister(); closeFormReg(); showbtn()"><a ><i
+                                    class="fa-sharp fa-solid fa-right-to-bracket "></i></a>
+                        </button>
+                    </div>
+                </ng-template>
+
+            </div>
+        </div>
+    </section>
 </div>
 
 

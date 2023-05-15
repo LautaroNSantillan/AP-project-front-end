@@ -3,6 +3,7 @@ import { Injectable, OnInit } from '@angular/core';
 import { WebUser } from '../model/web-user';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { Registerdto } from '../model/registerdto';
 
 @Injectable({
   providedIn: 'root'
@@ -39,5 +40,8 @@ export class WebUserService implements OnInit{
   }
   public getMe(): Observable<any>{
     return this.httpClient.get<any>(this.webUserURL+'get-me');
+  }
+  public registerWebUser(dto: Registerdto): Observable<any>{
+    return this.httpClient.post<any>(this.webUserURL+'create-web-user', dto);
   }
 }

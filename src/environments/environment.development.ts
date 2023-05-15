@@ -9,6 +9,7 @@ export const environment = {
     messagingSenderId: '723439384934',
     measurementId: 'G-1RMP6LC9J1',
   },
+  production: true,
   URL: 'http://localhost:8080/',
-  // URL: 'https://portfoliotestap.herokuapp.com/'
+  //URL: 'https://santillanlautaronportfolio.herokuapp.com/'
 };

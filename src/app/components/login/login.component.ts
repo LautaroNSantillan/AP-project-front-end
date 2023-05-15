@@ -8,6 +8,9 @@ import { SwalService } from 'src/app/services/swal.service';
 import { TokenService } from 'src/app/services/token.service';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
+import { WebUserService } from 'src/app/services/web-user.service';
+import { WebUser } from 'src/app/model/web-user';
+import { Registerdto } from 'src/app/model/registerdto';
 
 @Component({
   selector: 'app-login',
@@ -45,7 +48,8 @@ export class LoginComponent {
     private swal: SwalService,
     private aRouter: ActivatedRoute,
     private titleService: Title,
-    private renderer: Renderer2
+    private renderer: Renderer2,
+    private webUserService: WebUserService
   ) {
     this.form = this.fb.group({
       user: ['', Validators.required],
@@ -65,16 +69,13 @@ export class LoginComponent {
       next: (data) => {
         this.isLoggedIn = true;
         this.loginFailed = false;
-        console.log(data);
         this.tokenService.setToken(data.token);
         this.tokenService.setUsername(data.username);
-        console.log(data.username);
         this.tokenService.setAuthorities(data.authorities);
         this.roles = data.authorities;
-        this.router.navigate(['/dashboard']);
+        this.router.navigate(['/dashboard/home']);
       },
       error: (err) => {
-        console.log(err);
         this.form.reset();
         this.isLoggedIn = false;
         this.loginFailed = true;
@@ -94,7 +95,19 @@ export class LoginComponent {
   }
 
   onRegister(){
+    let newUser = new Registerdto(this.nameReg, this.lastNameReg, this.usernameReg, this.emailReg, this.passwordReg);
+    this.webUserService.registerWebUser(newUser).subscribe({
+      next:res=>{
+        this.closeForm();
+        this.swal.successAlert("Success!", res.msg);
+      },
+      error: err=>{
+        console.log(err);
+        this.swal.errorAlert("Error!", err.error.msg);
+      }
+    })
 
+    
   }
 
   triggerLoginError() {
