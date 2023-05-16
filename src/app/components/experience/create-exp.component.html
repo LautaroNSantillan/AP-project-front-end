@@ -16,7 +16,7 @@
           <input type="file" name="img" placeholder="Image" [(ngModel)]="webUser.img" (change)="uploadImage($event)"
             accept=".jpg, .jpeg, .png">
         </label>
-        <p class="form__label">Profile Image</p>
+        <p class="form__label">Experience Image</p>
         <img *ngIf="imageService.imgURL" [src]="imageService.imgURL" alt="" class="w-64 mx-auto">
       </div>
       <button class="button" matDialogClose (click)="onCreate()">CREATE</button>

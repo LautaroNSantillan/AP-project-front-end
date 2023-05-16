@@ -14,7 +14,7 @@
         <input type="file" name="img" placeholder="Image"  (change)="uploadImage($event)"
           accept=".jpg, .jpeg, .png">
       </label>
-      <p class="form__label">Education Image</p>
+      <p class="form__label">Skill Image</p>
       <img *ngIf="imageService.imgURL" [src]="imageService.imgURL" alt="" class="w-64 mx-auto">
     </div>
     <button class="button" matDialogClose (click)="onUpdate()">EDIT</button>
