@@ -1,27 +1,12 @@
-# YPPORTFOLIO
+﻿# :small_orange_diamond: :large_orange_diamond:  My Portfolio  :large_orange_diamond: :small_orange_diamond:
+##  Final project for Argentina Programa 4.0
+## :eight_pointed_black_star: Front end :eight_pointed_black_star:
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.1.4.
 
-## Development server
+:diamond_shape_with_a_dot_inside: **Deployed at :** [santillanlautaroportfolio.web.app](https://santillanlautaroportfolio.web.app/dashboard/home)
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+:diamond_shape_with_a_dot_inside: **Back end repo :** [github.com/LautaroNSantillan/ap-project-back-end](https://github.com/LautaroNSantillan/ap-project-back-end)
 
-## Code scaffolding
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+## :flying_disc: Technologies used :flying_disc:
+![tech](https://github.com/LautaroNSantillan/ap-project-front-end/blob/deploy/src/assets/images/fronttechs.png)
