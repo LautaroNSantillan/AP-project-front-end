@@ -35,9 +35,14 @@ export class SkillsComponent {
   ngOnInit(): void {
     this.setIsProfile();
     this.setIsLoggedIn();
+    this.load();
+  }
+  setIsLoggedIn(){
+    this.isLogged=this.auth.isLogged();
+  }
 
+  load(){
     const currentRoute = this.router.url;
-
     if(currentRoute=="/dashboard/profile"){
       this.loadSkills();
     }else{
@@ -47,9 +52,6 @@ export class SkillsComponent {
         }
       })
     }
-  }
-  setIsLoggedIn(){
-    this.isLogged=this.auth.isLogged();
   }
 
   loadSkills(): void {
@@ -72,14 +74,17 @@ export class SkillsComponent {
   openCreate(){
     this.createDialog.open(CreateSkillComponent,{
       width:'60%',
+    }).afterClosed().subscribe(() => {
+      this.load();
     });
-    this.loadSkills();
   }
 
   openEdit(id:number): void{
     this.editDialog.open(EditSkillComponent,{
       width: '60%',
       data: { skillId: id }
+    }).afterClosed().subscribe(() => {
+      this.load();
     });
   }
 
