@@ -7,7 +7,7 @@
       <label for="skillName" class="form__label">Skill Name</label>
     </div>
     <div>
-      <input type="number" class="form__input" name="skillPer" placeholder="Skill Percentage" [(ngModel)]="skillPer" id="skillPer" />
+      <input type="number" class="form__input h-auto box-border" name="skillPer" placeholder="Skill Percentage (250 character maximun)" [(ngModel)]="skillPer" id="skillPer" />
       <label for="skillPer" class="form__label">Skill Percentage</label>
     </div>
     <div class="mt-5">
@@ -15,7 +15,7 @@
         <input type="file" name="img" placeholder="Image" [(ngModel)]="webUser.img" (change)="uploadImage($event)"
           accept=".jpg, .jpeg, .png">
       </label>
-      <p class="form__label">Profile Image</p>
+      <p class="form__label">Skill Image</p>
       <img *ngIf="imageService.imgURL" [src]="imageService.imgURL" alt="" class="w-64 mx-auto">
     </div>
     <button class="button" matDialogClose (click)="onCreate()">CREATE</button>

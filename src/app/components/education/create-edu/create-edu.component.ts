@@ -47,7 +47,6 @@ export class CreateEduComponent implements OnInit {
   onCreate(): void {
     this.imgURL = this.imageService.imgURL;
 
-
     const education = new Education(
       this.eduName,
       this.eduDescription,
@@ -62,6 +61,8 @@ export class CreateEduComponent implements OnInit {
         this.swal.successAlert('Error!', err.error.msg);
       }
     );
+    this.imgURL ="";
+    this.imageService.imgURL="";
   }
 
   uploadImage($event: any) {

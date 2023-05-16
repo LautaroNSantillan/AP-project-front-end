@@ -50,7 +50,9 @@ export class EditExpComponent implements OnInit {
       this.swal.successAlert("Success!", res.msg);
     },err=>{
      this.swal.errorAlert("Error!", err.error.msg);
-    })
+    });
+    this.expToMod.imgURL="";
+    this.imageService.imgURL="";
   }
   uploadImage($event: any){
     const id = this.data.expId;

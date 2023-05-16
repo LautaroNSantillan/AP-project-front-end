@@ -3,11 +3,11 @@
   <form novalidate >
     <div class="flex flex-col justify-center items-center form__group">
       <div>
-        <input type="text" class="form__input" name="eduName" placeholder="Education Name" [(ngModel)]="eduName" id="eduName" />
+        <input type="text" class="form__input" name="eduName" placeholder="Education Name" [(ngModel)]="eduName" id="eduName" maxlength="250"/>
         <label for="eduName" class="form__label">Education Name</label>
       </div>
       <div>
-        <input type="text" class="form__input" name="eduDescription" placeholder="Education Description" [(ngModel)]="eduDescription" id="eduDescription" />
+        <input type="text" class="form__input h-auto box-border" name="eduDescription" placeholder="Education Description (250 character maximun)" [(ngModel)]="eduDescription" id="eduDescription" maxlength="250"/>
         <label for="eduDescription" class="form__label">Education Description</label>
       </div>
       <div class="mt-5">
@@ -22,22 +22,4 @@
     <button class="button" matDialogClose (click)="updateEdu()">EDIT</button>
   </form>
 
-    <!-- <form (ngSubmit)="updateEdu()" novalidate [formGroup]="editEduForm">
-        <div fxLayout="row" fxLayoutAlign="space-between center">
-            <mat-form-field>
-                <input matInput formControlName="eduName" placeholder="Education Name">
-              </mat-form-field>              
-          <mat-form-field>
-            <input matInput placeholder="Education Description" formControlName="eduDescription">
-          </mat-form-field>
-        </div>
-        <div>
-          <div>
-              Image
-              <input type="file" name="img" placeholder="Image" formControlName="imgURL" (change)="uploadImage($event)" accept=".jpg, .jpeg, .png" >
-              <img *ngIf="newimgURL" [src]="newimgURL" alt="" class="w-64">
-          </div>
-          </div>
-        <button mat-raised-button color="accent">Accent</button>
-      </form> -->
 </mat-dialog-content>

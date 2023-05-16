@@ -38,6 +38,7 @@ import { CreateMockUsersComponent } from './components/mock-users/create-mock-us
 import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
 
 import { NgCircleProgressModule } from 'ng-circle-progress';
+import { UploadImageService } from './services/upload-image.service';
 
 
 
@@ -93,6 +94,7 @@ import { NgCircleProgressModule } from 'ng-circle-progress';
     provideStorage(() => getStorage())
   ],
   providers: [
+    UploadImageService,
     interceptorProvider,
     { provide: LocationStrategy, useClass: PathLocationStrategy },
     { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS },]
