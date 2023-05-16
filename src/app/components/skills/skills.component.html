@@ -9,7 +9,7 @@
                 <h3 class="underline font-extrabold text-emerald-950 lg:text-3xl sm:text-2xl dark-underline self-start">
                     {{skill.skillName}} </h3>
                 <p class=" font-extrabold text-center font-semibold lg:text-2xl sm:text-xl">Confidence:</p>
-                <circle-progress [percent]=10
+                <circle-progress [percent]="skill.percentage"
                     [imageSrc]="skill.imgURL ? skill.imgURL : '../../../../assets/images/no-image.jpg'"
                     class="z-50"></circle-progress>
                 <div class="flex self-end z-50 w-full">
