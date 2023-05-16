@@ -20,7 +20,7 @@ const routes: Routes = [
       ),
   },
   { path: 'register', component: RegisterComponent },
-  { path: '**', redirectTo: '/dashboard' }, // Redirect all invalid routes to '/dashboard'
+  { path: '**', redirectTo: '/dashboard/home' }, // Redirect all invalid routes to '/dashboard'
 ];
 
 @NgModule({

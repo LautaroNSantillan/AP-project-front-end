@@ -7,8 +7,9 @@
 
     <button class="neu-button text-pinkgray" (click)="openCreate()" *ngIf="isLogged && isProfile">CREATE
       EDUCATION</button>
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-x-7 gap-y-5 mx-auto">
-      <div class="col-span-1  mx-auto w-4/5 inner-box-shadow bg-indigo-300/25 p-2 rounded-md animated-bg"
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-x-7 gap-y-5 mx-auto" *ngIf="education.length > 0; else noEdus">
+      <div class="col-span-1  mx-auto w-4/5 inner-box-shadow bg-indigo-300/25 p-2 rounded-md animated-bg" 
         *ngFor="let edu of education">
         <h3 class="underline font-extrabold text-emerald-950 lg:text-3xl sm:text-2xl"> {{edu.eduName}} </h3>
         <span class="flex">
@@ -34,6 +35,9 @@
         <div class='air air4'></div>
       </div>
     </div>
+
+    <ng-template #noEdus> <button mat-raised-button disabled color="primary">No skills to show here <span class="italic">yet</span>.</button></ng-template>
+
 
   </section>
 </span>

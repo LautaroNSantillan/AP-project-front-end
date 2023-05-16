@@ -37,9 +37,7 @@ export class CreateMockUsersComponent {
     const mockuser = new MockUser(this.form.value.name, this.form.value.lastName, this.form.value.birthdate);
 
     this.mockUserService.createUser(mockuser).subscribe(data => {
-      console.log(data);
-      alert("correcto");
-      location.reload();
+      this.swal.successAlert("Success!", "Mock user created successfully")     
     },err=>{
       this.swal.errorAlert("ERROR!",err.error.msg );
     })

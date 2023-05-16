@@ -10,6 +10,7 @@ import { EditSkillComponent } from './edit-skill/edit-skill.component';
 import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
 import { SwalService } from 'src/app/services/swal.service';
 import { CircleProgressComponent } from 'ng-circle-progress';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-skills',
@@ -28,10 +29,13 @@ export class SkillsComponent {
     private createDialog: MatDialog,
     private editDialog: MatDialog,
     private deleteDialog: MatDialog,
-    private swal: SwalService){}
+    private swal: SwalService,
+    private auth: AuthService){}
 
   ngOnInit(): void {
     this.setIsProfile();
+    this.setIsLoggedIn();
+
     const currentRoute = this.router.url;
 
     if(currentRoute=="/dashboard/profile"){
@@ -44,23 +48,19 @@ export class SkillsComponent {
       })
     }
   }
+  setIsLoggedIn(){
+    this.isLogged=this.auth.isLogged();
+  }
 
   loadSkills(): void {
     this.webUserService.getCurrentUserId().subscribe(userId => {
       this.skillService.getSkillByIdList(userId).subscribe(res => {
-        console.log(res);
         this.skills = res;
       });
     });
-    if(this.tokenService.getToken()){
-          this.isLogged=true;
-        }
-        else{
-          this.isLogged=false;
-        }
   }
 
-  disable(id :number): void{
+  disable(id :number): void{//obsolete
     if(id!=undefined){
       this.skillService.disable(id).subscribe({
         next: res=>this.loadSkills(),
@@ -81,19 +81,7 @@ export class SkillsComponent {
       data: { skillId: id }
     });
   }
-  // openDeleteDialog(id: number, name: string) {
-  //   const dialogRef = this.deleteDialog.open(DeleteDialogComponent, {
-  //     data: { thingtodelete: name }
-  //   });
 
-  //   dialogRef.componentInstance.thingtodelete = name;
-
-  //   dialogRef.afterClosed().subscribe(result => {
-  //     if (result === 'confirm') {
-  //       this.disable(id);
-  //     }
-  //   });
-  // }
 
   openDeleteDialog(id: number, name: string){
     this.swal.deleteDialog(id, name, () => {
