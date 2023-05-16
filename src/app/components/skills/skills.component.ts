@@ -11,11 +11,12 @@ import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component'
 import { SwalService } from 'src/app/services/swal.service';
 import { CircleProgressComponent } from 'ng-circle-progress';
 import { AuthService } from 'src/app/services/auth.service';
+import { UploadImageService } from 'src/app/services/upload-image.service';
 
 @Component({
   selector: 'app-skills',
   templateUrl: './skills.component.html',
-  styleUrls: ['./skills.component.scss']
+  styleUrls: ['./skills.component.scss'],
 })
 export class SkillsComponent {
   skills: Skill[] = [];
@@ -30,7 +31,9 @@ export class SkillsComponent {
     private editDialog: MatDialog,
     private deleteDialog: MatDialog,
     private swal: SwalService,
-    private auth: AuthService){}
+    private auth: AuthService,
+    private imageService: UploadImageService
+    ){}
 
   ngOnInit(): void {
     this.setIsProfile();
@@ -72,7 +75,7 @@ export class SkillsComponent {
   }
 
   openCreate(){
-    this.createDialog.open(CreateSkillComponent,{
+    const dialogRef= this.createDialog.open(CreateSkillComponent,{
       width:'60%',
     }).afterClosed().subscribe(() => {
       this.load();
@@ -85,9 +88,13 @@ export class SkillsComponent {
       data: { skillId: id }
     }).afterClosed().subscribe(() => {
       this.load();
+      this.resetImageURL();
     });
   }
 
+  resetImageURL(): void {
+    this.imageService.imgURL = null;
+  }
 
   openDeleteDialog(id: number, name: string){
     this.swal.deleteDialog(id, name, () => {

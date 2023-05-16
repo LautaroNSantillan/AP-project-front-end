@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -18,6 +18,8 @@ export class EditSkillComponent implements OnInit{
   skillName: string;
   skillPer:string;
   imgURL:string;
+  @Output() dialogClosed: EventEmitter<void> = new EventEmitter<void>();
+
 
   constructor(
     private skillService: SkillService, 
@@ -63,6 +65,7 @@ export class EditSkillComponent implements OnInit{
     }
     });
     this.skillToMod.imgURL="";
+    this.imageService.imgURL="";
   }
 
   uploadImage($event: any){

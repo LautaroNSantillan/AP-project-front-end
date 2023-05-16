@@ -68,6 +68,7 @@ export class EditEduComponent implements OnInit {
       },
     });
     this.imgURL ="";
+    this.imageService.imgURL="";
   }
 
   uploadImage($event: any) {

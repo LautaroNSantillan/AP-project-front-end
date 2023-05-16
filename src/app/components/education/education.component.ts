@@ -11,6 +11,8 @@ import { CreateEduComponent } from './create-edu/create-edu.component';
 import { EditEduComponent } from './edit-edu/edit-edu.component';
 import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
 import { SwalService } from 'src/app/services/swal.service';
+import { UploadImageService } from 'src/app/services/upload-image.service';
+import { DialogRef } from '@angular/cdk/dialog';
 
 @Component({
   selector: 'app-education',
@@ -32,7 +34,8 @@ export class EducationComponent implements OnInit {
     private createDialog: MatDialog,
     private editDialog: MatDialog,
     private deleteDialog: MatDialog,
-    private swal: SwalService
+    private swal: SwalService,
+    private imageService: UploadImageService
   ) {}
 
   ngOnInit(): void {
@@ -64,7 +67,9 @@ export class EducationComponent implements OnInit {
     if (currentRoute == '/dashboard/profile') this.isProfile = true;
     else this.isProfile = false;
   }
-
+  resetImageURL(): void {
+    this.imageService.imgURL = null;
+  }
   disable(id: number): void {
     //obsolete
     if (id != undefined) {
@@ -86,6 +91,7 @@ export class EducationComponent implements OnInit {
     });
     dialog.afterClosed().subscribe((result) => {
       this.loadEducation();
+
     });
   }
 
@@ -96,6 +102,7 @@ export class EducationComponent implements OnInit {
     });
     dialog.afterClosed().subscribe((result) => {
       this.loadEducation();
+      this.resetImageURL();
     });
   }
 

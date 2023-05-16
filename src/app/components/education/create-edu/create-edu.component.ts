@@ -62,6 +62,7 @@ export class CreateEduComponent implements OnInit {
       }
     );
     this.imgURL ="";
+    this.imageService.imgURL="";
   }
 
   uploadImage($event: any) {

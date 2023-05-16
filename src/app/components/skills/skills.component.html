@@ -13,10 +13,10 @@
                     [imageSrc]="skill.imgURL ? skill.imgURL : '../../../../assets/images/no-image.jpg'"
                     class="z-50"></circle-progress>
                 <div class="flex self-end z-50 w-full">
-                    <button *ngIf="isLogged" class="z-50" (click)="openEdit(skill.id)"
+                    <button *ngIf="isLogged && isProfile" class="z-50" (click)="openEdit(skill.id)"
                         class="flex items-center justify-center z-50 delete-button mx-2" matTooltip="EDIT"><mat-icon
                             class="text-md">edit</mat-icon></button>
-                    <button *ngIf="isLogged" class="z-50" (click)="openDeleteDialog(skill.id, skill.skillName)"
+                    <button *ngIf="isLogged && isProfile" class="z-50" (click)="openDeleteDialog(skill.id, skill.skillName)"
                         matTooltip="DELETE" class="flex items-center justify-center z-50 delete-button">␡</button>
                 </div>
 

@@ -49,7 +49,8 @@ export class CreateSkillComponent {
       error:err=>{
         this.swal.errorAlert("Error!", err.error.msg);
       }
-    })
+    });
+    this.imageService.imgURL="";
   }
 
   uploadImage($event: any){

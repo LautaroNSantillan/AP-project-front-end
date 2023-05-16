@@ -52,6 +52,7 @@ export class CreateExpComponent implements OnInit {
      this.swal.errorAlert("Error!", err.error.msg);
     });
     this.imgURL="";
+    this.imageService.imgURL="";
   }
 
   uploadImage($event: any){

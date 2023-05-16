@@ -10,6 +10,7 @@ import { EditExpComponent } from './edit-exp/edit-exp.component';
 import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
 import { SwalService } from 'src/app/services/swal.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { UploadImageService } from 'src/app/services/upload-image.service';
 
 @Component({
   selector: 'app-experience',
@@ -30,7 +31,8 @@ export class ExperienceComponent implements OnInit {
     private editDialog: MatDialog,
     private deleteDialog: MatDialog,
     private swal: SwalService,
-    private auth: AuthService
+    private auth: AuthService,
+    private imageService: UploadImageService
   ) {}
 
   ngOnInit() {
@@ -55,6 +57,9 @@ export class ExperienceComponent implements OnInit {
     const currentRoute = this.router.url;
     if (currentRoute == '/dashboard/profile') this.isProfile = true;
     else this.isProfile = false;
+  }
+  resetImageURL(): void {
+    this.imageService.imgURL = null;
   }
 
   loadExperience(): void {
@@ -83,6 +88,7 @@ export class ExperienceComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       this.loadExperience();
+      this.resetImageURL();
     });
   }
 
@@ -90,6 +96,7 @@ export class ExperienceComponent implements OnInit {
    const dialogRef=  this.editDialog.open(EditExpComponent,{data:{expId: id}, width:'60%',});
    dialogRef.afterClosed().subscribe(result => {
     this.loadExperience();
+    this.resetImageURL();
   });
    }
    
