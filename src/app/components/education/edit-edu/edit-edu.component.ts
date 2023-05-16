@@ -67,6 +67,7 @@ export class EditEduComponent implements OnInit {
         this.swal.errorAlert('Error!', err.error.msg);
       },
     });
+    this.imgURL ="";
   }
 
   uploadImage($event: any) {

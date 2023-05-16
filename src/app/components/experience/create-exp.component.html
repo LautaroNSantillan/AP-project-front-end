@@ -8,7 +8,7 @@
         <label for="newExpName" class="form__label">Experience Name</label>
       </div>
       <div>
-        <input type="text" class="form__input" name="newExpDescription" placeholder="Experience Description (250 character maximun)" [(ngModel)]="newExpDescription" id="newExpDescription" maxlength="250" />
+        <input type="text" class="form__input h-auto box-border" name="newExpDescription" placeholder="Experience Description (250 character maximun)" [(ngModel)]="newExpDescription" id="newExpDescription" maxlength="250" />
         <label for="newExpDescription" class="form__label">Experience Description</label>
       </div>
       <div class="mt-5">
@@ -23,24 +23,5 @@
     </div>
   </form>
 
-    <!-- <form (ngSubmit)="onCreate()" novalidate [formGroup]="newExpForm">
-        <div fxLayout="row" fxLayoutAlign="space-between center">
-            <mat-form-field>
-                <input matInput formControlName="expName" placeholder="Experience Name">
-              </mat-form-field>              
-          <mat-form-field>
-            <input matInput placeholder="Experience Description" formControlName="expDescription">
-          </mat-form-field>
-        </div>
-        <div>
-          <label>
-              Image
-              <input type="file" name="img" placeholder="Image" formControlName="imgURL" (change)="uploadImage($event)" accept=".jpg, .jpeg, .png" >
-          </label>
-          <img *ngIf="imageService.imgURL" [src]="imageService.imgURL" alt="" class="w-64">
-      </div>
-      <mat-dialog-actions align="end">
-        <button mat-raised-button color="accent">Accent</button>
-      </mat-dialog-actions>
-      </form> -->
+    
 </mat-dialog-content>

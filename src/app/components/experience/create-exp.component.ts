@@ -50,7 +50,8 @@ export class CreateExpComponent implements OnInit {
       this.swal.successAlert("Success!", "Experience Added");
     }, err => {
      this.swal.errorAlert("Error!", err.error.msg);
-    })
+    });
+    this.imgURL="";
   }
 
   uploadImage($event: any){

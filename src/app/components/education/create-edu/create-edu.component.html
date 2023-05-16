@@ -17,7 +17,7 @@
             accept=".jpg, .jpeg, .png">
         </label>
         <p class="form__label">Profile Image</p>
-        <img *ngIf="imageService.imgURL" [src]="imageService.imgURL" alt="" class="w-64">
+        <img *ngIf="imageService.imgURL" [src]="imageService.imgURL" alt="" class="w-64 mx-auto">
       </div>
       <button class="button" matDialogClose (click)="onCreate()">CREATE</button>
     </div>

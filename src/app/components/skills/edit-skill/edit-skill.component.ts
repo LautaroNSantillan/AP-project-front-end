@@ -50,7 +50,9 @@ export class EditSkillComponent implements OnInit{
   onUpdate(): void {
     const id  = this.data.skillId;
 
-    console.log(this.skillToMod.skillName, this.skillToMod.percentage);
+    this.skillToMod.imgURL= this.imgURL;
+
+    console.log(this.skillToMod.skillName, this.skillToMod.percentage,);
 
     this.skillService.update(id, this.skillToMod).subscribe({
     next: res=>{
@@ -59,7 +61,8 @@ export class EditSkillComponent implements OnInit{
     error: err=>{
       this.swal.errorAlert('Error!', err.error.msg);
     }
-    })
+    });
+    this.skillToMod.imgURL="";
   }
 
   uploadImage($event: any){

@@ -6,7 +6,7 @@
       <label for="skillName" class="form__label">Skill Name</label>
     </div>
     <div>
-      <input type="number" class="form__input" name="skillPer" placeholder="Skill Percentage (250 character maximun)" [(ngModel)]="skillToMod.percentage" id="skillPer" maxlength="250"/>
+      <input type="number" class="form__input h-auto box-border" name="skillPer" placeholder="Skill Percentage (250 character maximun)" [(ngModel)]="skillToMod.percentage" id="skillPer" maxlength="250"/>
       <label for="skillPer" class="form__label">Skill Percentage</label>
     </div>
     <div class="mt-5">
@@ -15,7 +15,7 @@
           accept=".jpg, .jpeg, .png">
       </label>
       <p class="form__label">Education Image</p>
-      <img *ngIf="imageService.imgURL" [src]="imageService.imgURL" alt="" class="w-64">
+      <img *ngIf="imageService.imgURL" [src]="imageService.imgURL" alt="" class="w-64 mx-auto">
     </div>
     <button class="button" matDialogClose (click)="onUpdate()">EDIT</button>
   </div>
