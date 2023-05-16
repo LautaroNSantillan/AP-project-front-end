@@ -73,6 +73,7 @@ export class SkillsComponent {
     this.createDialog.open(CreateSkillComponent,{
       width:'60%',
     });
+    this.loadSkills();
   }
 
   openEdit(id:number): void{

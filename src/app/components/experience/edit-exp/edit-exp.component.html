@@ -3,12 +3,12 @@
   <form novalidate>
     <div class="flex flex-col justify-center items-center form__group">
       <div>
-        <input type="text" class="form__input" name="expName" placeholder="Experience Name"
+        <input type="text" class="form__input" name="expName" placeholder="Experience Name" maxlength="250"
           [(ngModel)]="expToMod.expName" id="expName" />
         <label for="expName" class="form__label">Experience Name</label>
       </div>
       <div>
-        <input type="text" class="form__input" name="expDescription" placeholder="Experience Name"
+        <input type="text" class="form__input" name="expDescription" placeholder="Experience Description (250 character maximun)" maxlength="250"
           [(ngModel)]="expToMod.expDescription" id="expDescription" />
         <label for="expDescription" class="form__label">Experience Description</label>
       </div>

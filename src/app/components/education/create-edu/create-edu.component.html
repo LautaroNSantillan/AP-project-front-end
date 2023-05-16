@@ -3,11 +3,11 @@
   <form novalidate>
     <div class="flex flex-col justify-center items-center form__group">
       <div>
-        <input type="text" class="form__input" name="eduName" placeholder="Education Name" [(ngModel)]="eduName" id="eduName" />
+        <input type="text" class="form__input" name="eduName" placeholder="Education Name" [(ngModel)]="eduName" id="eduName" maxlength="250"/>
         <label for="eduName" class="form__label">Education Name</label>
       </div>
       <div>
-        <input type="text" class="form__input" name="eduDescription" placeholder="Education Description" [(ngModel)]="eduDescription"
+        <input type="text" class="form__input" name="eduDescription" placeholder="Education Description (250 character maximun)" [(ngModel)]="eduDescription" maxlength="250"
           id="eduDescription" />
         <label for="eduDescription" class="form__label">Education Description</label>
       </div>
